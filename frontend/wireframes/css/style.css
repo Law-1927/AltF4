@@ -1,0 +1,53 @@
+/* ALTF4 — Full System Wireframe styles
+   Extracted from the original inline <style> block. */
+
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    overflow-x: auto;
+}
+
+/* Custom scrollbar for the whiteboard feel */
+::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #111;
+}
+::-webkit-scrollbar-thumb {
+    background: #E60000;
+    border-radius: 6px;
+}
+
+.wireframe-screen {
+    width: 375px;
+    flex-shrink: 0;
+    background: #000;
+    border: 2px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.screen-header {
+    background: #E60000;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    flex-shrink: 0;
+    color: #555;
+}

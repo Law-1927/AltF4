@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTF4 - Full System Wireframe (PH Localized)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="p-10 min-w-max">
+
+    <div class="mb-10">
+        <h1 class="text-4xl font-extrabold italic tracking-wider mb-2">
+            <span class="text-white border border-zinc-500 px-2 py-1 rounded text-xl font-mono not-italic bg-zinc-800">Alt</span>
+            ALT<span class="text-altRed">F4</span> UI/UX WIREFRAME BOARD
+        </h1>
+        <p class="text-zinc-400 font-mono">System Flow: Customer Journey ➔ Staff Operations ➔ Database Records</p>
+        <p class="text-green-500 font-mono text-sm mt-2">✓ Localized: Philippine Peso (PHP) & PH Demographics</p>
+    </div>
+
+    <div class="flex gap-4 items-stretch pb-10">
+
+        <div class="wireframe-screen">
+            <div class="screen-header">1. Auth (Login/Register)</div>
+            <div class="p-6">
+                <div class="text-center mb-8 mt-4">
+                    <h2 class="text-2xl font-black italic">ALT<span class="text-altRed">F4</span></h2>
+                    <p class="text-xs text-zinc-500 mt-1">Client Portal</p>
+                </div>
+                <div class="flex border-b border-zinc-800 mb-6 text-sm">
+                    <div class="w-1/2 pb-2 text-altRed border-b-2 border-altRed text-center font-bold">Log In</div>
+                    <div class="w-1/2 pb-2 text-zinc-500 text-center">Register</div>
+                </div>
+                <div class="space-y-4">
+                    <input type="email" placeholder="juan.delacruz@email.com" class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                    <input type="password" placeholder="••••••••" class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                    <button class="w-full bg-altRed text-white font-bold py-3 mt-4 text-sm uppercase">Secure Login</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+
+        <div class="wireframe-screen">
+            <div class="screen-header">2. Service & Details</div>
+            <div class="p-6 h-[500px] overflow-y-auto">
+                <h3 class="font-bold text-sm uppercase border-l-2 border-altRed pl-2 mb-4">Vehicle Specs</h3>
+                <div class="space-y-3 mb-6">
+                    <input type="text" value="Juan dela Cruz" class="w-full bg-zinc-900 border border-zinc-700 p-2 text-xs" readonly>
+                    <input type="text" value="0917-123-4567" class="w-full bg-zinc-900 border border-zinc-700 p-2 text-xs" readonly>
+                    <select class="w-full bg-zinc-900 border border-zinc-700 p-2 text-xs text-white">
+                        <option>Toyota Fortuner (SUV)</option>
+                        <option>Honda Civic (Sedan)</option>
+                        <option>Ford Ranger (Truck)</option>
+                    </select>
+                </div>
+
+                <h3 class="font-bold text-sm uppercase border-l-2 border-altRed pl-2 mb-4">Select Service</h3>
+                <div class="space-y-3 text-xs">
+                    <div class="border border-altRed bg-altRed/10 p-3">
+                        <div class="flex justify-between font-bold text-sm mb-1">
+                            <span>Ceramic Pro (9H)</span>
+                            <span class="text-altRed">₱ 45,000</span>
+                        </div>
+                        <p class="text-zinc-500">5-year warranty. 4 hours bay time.</p>
+                    </div>
+                    <div class="border border-zinc-800 p-3">
+                        <div class="flex justify-between font-bold text-sm mb-1">
+                            <span>Standard PMS</span>
+                            <span class="text-white">₱ 8,500</span>
+                        </div>
+                    </div>
+                    <div class="border border-zinc-800 p-3">
+                        <div class="flex justify-between font-bold text-sm mb-1">
+                            <span>Deep Detailing</span>
+                            <span class="text-white">₱ 12,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+
+        <div class="wireframe-screen">
+            <div class="screen-header">3. Date & Time Sync</div>
+            <div class="p-6">
+                <div class="bg-zinc-900 border border-zinc-800 p-3 text-xs text-zinc-400 mb-6">
+                    <span class="text-green-500 font-bold">System Check:</span> Bay 1 is available for Ceramic Coating (4 hrs).
+                </div>
+
+                <h3 class="font-bold text-sm uppercase mb-4">Select Date</h3>
+                <input type="date" value="2026-06-01" class="w-full bg-black border border-zinc-700 p-3 text-sm text-white mb-6">
+
+                <h3 class="font-bold text-sm uppercase mb-4">Available Slots</h3>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="border border-altRed bg-altRed text-white p-2 text-center font-bold cursor-pointer">09:00 AM</div>
+                    <div class="border border-zinc-700 p-2 text-center text-zinc-500 line-through">01:00 PM (Booked)</div>
+                    <div class="border border-zinc-700 p-2 text-center hover:border-altRed cursor-pointer">03:30 PM</div>
+                </div>
+
+                <button class="w-full bg-altRed text-white font-bold py-3 mt-8 text-sm uppercase">Proceed to Confirm</button>
+            </div>
+        </div>
+
+        <div class="connector"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+
+        <div class="wireframe-screen">
+            <div class="screen-header">4. Confirmation</div>
+            <div class="p-6 flex flex-col items-center justify-center text-center h-full pb-16">
+                <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h2 class="text-2xl font-black uppercase mb-2">Booked!</h2>
+                <p class="text-sm text-zinc-400 mb-6">Your appointment is confirmed.</p>
+
+                <div class="bg-zinc-900 border border-zinc-800 p-4 w-full text-left text-xs space-y-2">
+                    <div class="flex justify-between"><span class="text-zinc-500">Ref ID:</span> <span class="font-bold text-altRed">ALT-PH-092</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Name:</span> <span class="font-bold">Juan dela Cruz</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Vehicle:</span> <span class="font-bold">Toyota Fortuner</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Schedule:</span> <span class="font-bold">Jun 1 @ 9:00 AM</span></div>
+                    <div class="flex justify-between border-t border-zinc-800 pt-2 mt-2"><span class="text-zinc-500">Total Due:</span> <span class="font-bold text-altRed text-sm">₱ 45,000</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector border-l-2 border-dashed border-zinc-700 h-64 mx-4 relative">
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-zinc-500 font-mono uppercase bg-[#111] px-2 text-center w-32">Data Sync<br>To Staff</div>
+            <svg class="w-8 h-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </div>
+
+        <div class="wireframe-screen !w-[500px]">
+            <div class="screen-header !bg-zinc-800">5 & 6. Staff Dashboard (Monitoring)</div>
+            <div class="p-6">
+                <div class="flex justify-between items-end mb-6">
+                    <h3 class="font-bold uppercase border-l-4 border-altRed pl-2">Daily Operations</h3>
+                    <span class="text-xs bg-altRed px-2 py-1">June 1, 2026</span>
+                </div>
+
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="border-b border-zinc-800 text-zinc-500 uppercase">
+                            <th class="pb-2">Time</th>
+                            <th class="pb-2">Client / Car</th>
+                            <th class="pb-2">Service</th>
+                            <th class="pb-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-zinc-900">
+                            <td class="py-3 font-bold">09:00 AM</td>
+                            <td class="py-3">Juan dela Cruz<br><span class="text-zinc-500 text-[10px]">Fortuner</span></td>
+                            <td class="py-3">Ceramic Pro</td>
+                            <td class="py-3">
+                                <select class="bg-yellow-900/30 text-yellow-500 border border-yellow-900 p-1 outline-none text-[10px] font-bold">
+                                    <option>Ongoing</option>
+                                    <option>Completed</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-zinc-900">
+                            <td class="py-3 font-bold text-zinc-500">11:00 AM</td>
+                            <td class="py-3 text-zinc-500">Maria Santos<br><span class="text-zinc-600 text-[10px]">Honda Civic</span></td>
+                            <td class="py-3 text-zinc-500">Stage 1 PMS</td>
+                            <td class="py-3">
+                                <span class="bg-zinc-800 text-zinc-400 p-1 px-2 border border-zinc-700 text-[10px] font-bold">Pending</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-zinc-900">
+                            <td class="py-3 font-bold text-zinc-500">01:30 PM</td>
+                            <td class="py-3 text-zinc-500">Mark Reyes<br><span class="text-zinc-600 text-[10px]">Ford Ranger</span></td>
+                            <td class="py-3 text-zinc-500">Detailing</td>
+                            <td class="py-3">
+                                <span class="bg-green-900/30 text-green-500 p-1 px-2 border border-green-900 text-[10px] font-bold">Completed</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="connector flex flex-col gap-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </div>
+
+        <div class="wireframe-screen !w-[300px]">
+            <div class="screen-header !bg-green-700">7. Automated Notice</div>
+            <div class="p-6 h-full bg-zinc-900">
+                <div class="bg-black border border-zinc-800 rounded-3xl h-[400px] p-4 relative flex flex-col shadow-inner">
+                    <div class="text-center text-[10px] text-zinc-500 mb-4 border-b border-zinc-800 pb-2">Message from ALTF4</div>
+
+                    <div class="bg-zinc-800 text-white text-xs p-3 rounded-tr-xl rounded-bl-xl rounded-br-xl w-[85%] mb-4 self-start shadow-md">
+                        Hi Juan! 🚗✨ Your Toyota Fortuner is fully coated and ready for pickup.
+                        <br><br>
+                        Total Balance: ₱ 45,000.
+                        <br><br>
+                        See you at the ALTF4 Bay!
+                    </div>
+
+                    <div class="absolute bottom-4 left-4 right-4 bg-zinc-800 rounded-full p-2 text-center text-xs text-zinc-500">
+                        Reply to ALTF4...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+
+        <div class="wireframe-screen !w-[450px]">
+            <div class="screen-header !bg-zinc-800">8. Reports & Storage</div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-altPanel border border-zinc-800 p-4">
+                        <div class="text-[10px] text-zinc-500 uppercase font-bold">Daily Revenue</div>
+                        <div class="text-2xl font-mono text-altRed font-bold mt-1">₱ 65,500</div>
+                    </div>
+                    <div class="bg-altPanel border border-zinc-800 p-4">
+                        <div class="text-[10px] text-zinc-500 uppercase font-bold">Completed Jobs</div>
+                        <div class="text-2xl font-mono text-white font-bold mt-1">4</div>
+                    </div>
+                </div>
+
+                <h3 class="font-bold text-sm uppercase mb-3 border-l-2 border-altRed pl-2">Cloud Records</h3>
+                <div class="space-y-2">
+                    <div class="bg-black border border-zinc-800 p-3 flex justify-between items-center text-xs">
+                        <div>
+                            <div class="font-bold text-white">Juan dela Cruz</div>
+                            <div class="text-zinc-500">ALT-PH-092 • Jun 1</div>
+                        </div>
+                        <button class="bg-zinc-800 border border-zinc-600 px-2 py-1 text-[10px] hover:bg-altRed hover:border-altRed transition-colors">PDF Warranty</button>
+                    </div>
+                    <div class="bg-black border border-zinc-800 p-3 flex justify-between items-center text-xs">
+                        <div>
+                            <div class="font-bold text-white">Maria Santos</div>
+                            <div class="text-zinc-500">ALT-PH-091 • May 31</div>
+                        </div>
+                        <button class="bg-zinc-800 border border-zinc-600 px-2 py-1 text-[10px] hover:bg-altRed hover:border-altRed transition-colors">PDF Warranty</button>
+                    </div>
+                </div>
+
+                <button class="w-full border border-zinc-700 text-zinc-400 text-[10px] font-bold py-2 mt-4 uppercase hover:text-white hover:border-zinc-500">Export CSV Report</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
