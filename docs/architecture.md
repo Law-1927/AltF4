@@ -12,62 +12,123 @@ built around three objectives set out in the Letter of Agreement:
 3. **Automated Appointment Booking and Scheduling** — remove double
    bookings and missed appointments caused by the current manual process.
 
-These map onto a standard three-layer architecture:
+## 2. Architecture
+
+The backend decision is **Supabase** (hosted Postgres with built-in Auth
+and Realtime). There is no custom server: the browser talks to Supabase
+directly, and the business rules live inside the database.
 
 ```
-┌─────────────┐      ┌─────────────┐      ┌─────────────┐
-│  frontend/  │ ───▶ │  backend/   │ ───▶ │  database/  │
-│  (UI)       │ ◀─── │  (API)      │ ◀─── │  (data)     │
-└─────────────┘      └─────────────┘      └─────────────┘
+┌──────────────────────────┐        ┌─────────────────────────────────┐
+│  Browser (client / staff)│        │  Supabase                       │
+│  frontend/app            │  HTTPS │  ├─ Auth      login, sessions   │
+│  static HTML + JS        │ ─────▶ │  ├─ Postgres  tables, Row Level │
+│  supabase-js (CDN)       │ ◀───── │  │            Security, triggers│
+│                          │  WS    │  └─ Realtime  change feed       │
+└──────────────────────────┘        └─────────────────────────────────┘
 ```
 
-- **frontend/** — what the client and staff see and interact with.
-- **backend/** — business logic and rules, sitting between the UI and the data.
-- **database/** — persistent storage for customers, vehicles,
-  appointments, services, and notifications.
+- **frontend/app/** — the real application (see `frontend/README.md`).
+  `frontend/wireframes/` is the original design board, kept for reference.
+- **supabase/migrations/** — the database schema and all server-side
+  rules. This is the source of truth (`database/schema.sql` is the
+  superseded first draft).
+- **backend/** — empty placeholder folders from the original three-layer
+  plan. Nothing runs there. See `backend/README.md`.
 
-## 2. Real-time data flow
+### Where each business rule is enforced
 
-Because the system spans a website and a mobile app used by clients and
-staff at the same time, real-time data reflection is a core requirement:
+| Rule | Enforced by |
+|---|---|
+| No double booking | Exclusion constraint `no_double_booking` on `appointments` (rejects any overlapping time range, ignores cancelled bookings) |
+| Price, end time, and reference number cannot be chosen by the client | Trigger `prepare_appointment` computes them from the service |
+| Who can read or change what | Row Level Security policies on every table |
+| A user cannot promote themselves | Trigger `protect_profile_role` (only an admin can change roles) |
+| Clients can only cancel their own pending bookings | Function `cancel_appointment()` (clients have no update permission) |
+| Clients are notified of bookings and status changes | Trigger `notify_appointment` writes a row to `notifications` |
+| Other clients' slots are hidden but taken times are visible | `booked_slots` table (times only, no personal data), kept in sync by trigger |
+| Shop opening hours and closed days | **Frontend only** (`frontend/app/js/shop-config.js`). Not enforced by the database yet |
 
-- **appointment.created** — pushed to the staff dashboard the instant a
-  client books, and used to lock the slot so a second client cannot book
-  the same time.
-- **appointment.statusChanged** — pushed to the client's device when
-  staff update a job's status, triggering the automated notice.
-- **slot.booked** — pushed to any client currently viewing the booking
-  calendar, so the slot disappears from availability immediately.
+## 3. Real-time data flow
 
-Backend options compared for this (see Project Plan for full detail):
-Laravel + Reverb, Node.js + Socket.IO, Django + Channels, Firebase, and
-Supabase — no final decision made yet.
+Because clients and staff use the system at the same time, changes must
+show up without a page refresh. Supabase Realtime publishes changes on
+`appointments`, `booked_slots`, and `notifications`.
 
-## 3. User flow (from the wireframe)
+| Event | How it works | Status |
+|---|---|---|
+| **appointment.created** | Staff dashboard subscribes to `appointments` and reloads on any change | Implemented |
+| **slot.booked** | Booking page subscribes to `booked_slots`; taken slots are struck through live. The database constraint is the final guard if two clients click at once | Implemented |
+| **appointment.statusChanged** | Trigger inserts a `notifications` row for the client | Row is created. Client-facing notice screen and SMS/email delivery are not built |
 
-1. **Auth** (frontend) → client logs in or registers.
-2. **Service & Details** (frontend → backend) → client selects a
-   vehicle and a service.
-3. **Date & Time Sync** (frontend ↔ backend ↔ database) → backend
-   checks slot availability in real time to prevent double booking.
-4. **Confirmation** (frontend) → booking reference generated and shown.
-5–6. **Staff Dashboard** (frontend → backend) → staff view and update
-   the day's appointments.
-7. **Automated Notice** (backend → notifications) → status changes
-   trigger a client-facing message.
-8. **Reports & Storage** (backend → database) → daily revenue and
-   completed-job counts aggregated; records exportable (PDF/CSV).
+## 4. Security model
 
-See `wireframes.md` for a screen-by-screen breakdown.
+- **Roles:** `client` (default for every signup), `staff`, `admin`. Staff
+  and admin accounts are promoted by an admin in the Supabase SQL Editor.
+- **Clients** see only their own profile, vehicles, appointments, and
+  notifications. They can read the service list and the anonymized
+  `booked_slots`.
+- **Staff / admin** can read all bookings and update their status. Only
+  admins can edit services or change roles.
+- **Keys:** the Project URL and the **publishable** key are in the
+  frontend by design. The **secret / `service_role` key must never** be
+  placed in frontend code or committed.
+- Page redirects in the frontend (for example, sending a client away from
+  the dashboard) are a convenience only. The database policies are what
+  actually protect the data.
 
-## 4. Status / next steps
+## 5. User flow (from the wireframe)
+
+| # | Wireframe screen | Page | Status |
+|---|---|---|---|
+| 1 | Auth | `login.html` | Built |
+| 2 | Service & Details | `book-service.html` | Built |
+| 3 | Date & Time Sync | `book-schedule.html` | Built |
+| 4 | Confirmation | `book-confirmation.html` | Built |
+| 5–6 | Staff Dashboard | `dashboard.html` | Built |
+| 7 | Automated Notice | — | Not built (notification rows are created; no client screen yet) |
+| 8 | Reports & Storage | — | Not built (`reports_daily` view exists) |
+
+See `wireframes.md` for the screen-by-screen design breakdown.
+
+## 6. Decisions
+
+| Decision | Choice | Notes |
+|---|---|---|
+| Backend | Supabase | Chosen over Laravel + Reverb, Node.js + Socket.IO, Django + Channels, and Firebase. Gives auth, database, and real-time without running a server |
+| Database | Postgres (via Supabase) | Replaces the SQLite-style draft in `database/schema.sql` |
+| Frontend | Plain HTML, CSS, and JavaScript with `supabase-js`, no build step | Works with VS Code Live Server. Can be revisited if the app outgrows it |
+
+## 7. Known limitations and open items
+
+- **Shop hours are placeholders** (Monday–Saturday, 9 AM–6 PM) pending the
+  client, and are not enforced by the database.
+- **One service bay is assumed.** The double-booking rule blocks any
+  overlap. Supporting two or more bays needs a different rule.
+- **Service catalog contains `[TEST]` sample entries.** The client's real
+  services and prices must replace them.
+- **Notifications are in-app records only.** No SMS or email is sent.
+- **Completed and Cancelled are final** in the dashboard. Corrections
+  currently need an admin to edit the database.
+- **Reports, CSV/PDF export, and client booking history** are not built.
+- **Email confirmation on signup** may be switched off in Supabase for
+  testing. It should be switched on before real use.
+- Open questions for the team: staff assignment per appointment, and
+  service add-ons or bundles.
+
+## 8. Status
 
 - [x] Wireframe board — 8 screens, PH-localized
 - [x] Wireframe split into HTML/CSS/JS
-- [x] Draft database schema (`database/schema.sql`)
-- [ ] Team review of the draft schema
-- [ ] Backend framework decision
-- [ ] Frontend framework decision for the actual app build
-- [ ] Auth implementation
-- [ ] Booking conflict-checking logic
-- [ ] Notification delivery mechanism
+- [x] Backend decision — Supabase
+- [x] Database schema applied (`supabase/migrations/`)
+- [x] Auth (register, login, roles)
+- [x] Booking flow with conflict checking and live slot updates
+- [x] Staff dashboard with status changes
+- [ ] Team review of the schema
+- [ ] Client booking history and notices screen
+- [ ] Reports and export
+- [ ] Real service catalog and shop hours from the client
+- [ ] Database-level enforcement of shop hours
+- [ ] SMS / email notification delivery
+- [ ] Production deployment

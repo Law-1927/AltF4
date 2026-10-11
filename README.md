@@ -6,9 +6,9 @@ Software Engineering Project
 Digital appointment and records management system built by team **ALT F4**
 for the client **Shimmer and Shield Car Coating**.
 
-This repo scaffolds the system into three layers — `frontend/`, `backend/`,
-`database/` — plus a `docs/` folder for architecture and process notes.
-See `docs/architecture.md` for the full breakdown.
+The app is a static web frontend (`frontend/app/`) that talks directly to a
+**Supabase** backend (Postgres, Auth, Realtime). See `docs/architecture.md`
+for the full breakdown and `docs/SETUP.md` to run it locally.
 
 ## Project objectives (from the Letter of Agreement)
 
@@ -20,11 +20,21 @@ See `docs/architecture.md` for the full breakdown.
 
 ```
 AltF4/
-├── frontend/       UI code — wireframes now, app source later
-├── backend/        API/server logic (controllers, models, routes, middleware)
-├── database/       Schema and data-layer notes
-└── docs/           Architecture, wireframe walkthrough, schema docs
+├── frontend/
+│   ├── wireframes/   Original 8-screen design board
+│   └── app/          The real application (HTML/CSS/JS, no build step)
+├── supabase/
+│   ├── migrations/   Database schema and rules (source of truth)
+│   └── seed_test_services.sql   Sample services for development only
+├── database/         Database notes (schema.sql is the superseded draft)
+├── backend/          Notes only — there is no custom server
+└── docs/             Architecture, setup guide, wireframe walkthrough
 ```
+
+## Quick start
+
+See `docs/SETUP.md`. In short: open the repo in VS Code, open
+`frontend/app/login.html`, and click **Go Live**.
 
 ## Status
 
@@ -32,6 +42,12 @@ AltF4/
 - [x] Letter of Agreement (signed)
 - [x] UI/UX wireframe board (8-screen flow)
 - [x] Project Plan
-- [ ] Frontend build-out
-- [ ] Backend build-out
-- [ ] Database implementation
+- [x] Backend decision (Supabase)
+- [x] Database implementation
+- [x] Login, registration, and roles
+- [x] Booking flow (service, date and time, confirmation)
+- [x] Staff dashboard
+- [ ] Client booking history and notices
+- [ ] Reports and export
+- [ ] Real service catalog and shop hours from the client
+- [ ] Production deployment

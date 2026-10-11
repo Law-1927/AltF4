@@ -3,10 +3,10 @@
 How to get the project running on your own machine: open the repo, run the
 frontend with **Live Server** in VS Code, and connect the Supabase backend.
 
-> **Status:** only the wireframes (`frontend/wireframes/`) and the Supabase
-> schema (`supabase/migrations/`) exist so far. The real app is not built yet,
-> so sections marked **(planned)** describe the intended setup, not
-> something you can run today.
+> **Status:** the booking app (`frontend/app/`) and the Supabase schema
+> (`supabase/migrations/`) are built and working. Production deployment
+> (section 7) is still planned, so that section describes the intended
+> setup, not something you can run today.
 
 ---
 
@@ -50,7 +50,10 @@ AltF4/
 
 ## 3. Live preview with Live Server
 
-The wireframe is plain HTML with no build step, so Live Server is all you need.
+The frontend is plain HTML with no build step, so Live Server is all you need.
+The steps below use the wireframe. To run the real app instead, open
+`frontend/app/login.html` the same way
+(URL: `http://127.0.0.1:5500/frontend/app/login.html`).
 
 1. Install the **Live Server** extension in VS Code.
 2. In the Explorer, open `frontend/wireframes/index.html`.
@@ -126,7 +129,8 @@ insert into public.services (name, description, price_php, duration_mins, warran
 values ('Service name', 'Short description', 0.00, 60, null);
 ```
 
-`duration_mins` is how long the bay is occupied. It is also what the
+For development, `supabase/seed_test_services.sql` adds three `[TEST]` sample
+services. `duration_mins` is how long the bay is occupied. It is also what the
 double-booking rule uses.
 
 ### 4.5 Find your API keys
@@ -163,25 +167,26 @@ Stop it with `npx supabase stop`.
 
 ---
 
-## 6. Connecting the frontend to Supabase (planned)
+## 6. How the frontend connects to Supabase
 
-Not implemented yet. The intended approach:
+The app in `frontend/app/` is already wired up. Its connection settings are
+in one file, `frontend/app/js/supabase-config.js`: the Project URL and the
+**publishable** key. Both are safe to commit. Every page loads the
+supabase-js library from a CDN, then that config, then
+`supabase-client.js`, which creates the shared client.
 
-- Load the client library from the CDN in the page, or install
-  `@supabase/supabase-js` once the frontend has a build step.
-- Keep the **Project URL** and **anon key** in one config file
-  (for example `frontend/js/supabase-config.js`) so they are not scattered
-  through the code.
-- Per screen:
-  - **Auth:** `supabase.auth.signUp()` / `signInWithPassword()`
-  - **Booking:** insert into `appointments`; the database sets the price,
-    end time, and reference number
-  - **Availability:** read `booked_slots` and subscribe to it for live updates
-  - **Staff dashboard:** subscribe to `appointments` changes
-  - **Cancel:** call `supabase.rpc('cancel_appointment', { p_id })`
+- **Using the team's Supabase project:** nothing to change.
+- **Using your own Supabase project for testing:** apply the migration to it
+  (section 4), then put your own URL and publishable key in that one file.
+  Do not commit that change over the team's values.
+- **Never** put the secret key (`sb_secret_...`) or the legacy
+  `service_role` key anywhere in `frontend/`.
 
-The anon key is designed to be public, but still keep it out of the repo if
-the repo is ever made public alongside a project holding real client data.
+New signups only get a session right away if **Confirm email** is off in
+Supabase (**Authentication > Sign In / Providers > Email**). Switching it off
+is fine for development. Switch it back on before real use.
+
+The pages and what each does are listed in `frontend/README.md`.
 
 ---
 
@@ -227,6 +232,10 @@ When the system is ready for the client:
 | Booking rejected "Appointment must start in the future" | The start time is in the past |
 | Query returns empty for a signed-in user | Row-level security. The user is probably not the owner or not staff |
 | `npx supabase start` fails | Docker Desktop is not running |
+| Home page says "Could not load your profile" | The profile row is missing, or the migration was not applied to this project |
+| Booking page lists no services | The catalog is empty. Run `supabase/seed_test_services.sql` for test data |
+| A new signup stays on the login page | Email confirmation is on. Confirm via the email, or switch it off for testing |
+| Slots or the dashboard do not update live | Run `select tablename from pg_publication_tables where pubname = 'supabase_realtime';` It should list `appointments`, `booked_slots`, and `notifications` |
 
 ---
 
@@ -238,5 +247,5 @@ When the system is ready for the client:
 - Change the database through new migration files, not by editing the one
   already applied. Name them with a timestamp prefix, for example
   `20261015000000_add_staff_assignments.sql`.
-- Open team decisions: number of service bays, business hours and days off,
-  staff assignment, and add-ons or bundles.
+- The backend is decided (Supabase). Open decisions: number of service bays,
+  business hours and days off, staff assignment, and add-ons or bundles.

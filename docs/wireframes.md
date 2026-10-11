@@ -4,6 +4,10 @@ Source: `frontend/wireframes/index.html`. Eight screens, laid out
 left-to-right as one continuous customer-to-staff flow, localized for
 the Philippines (PHP pricing, local names and phone number format).
 
+> **Implementation status:** this file describes the design board. The
+> built pages that implement these screens are mapped in
+> `frontend/README.md`.
+
 | # | Screen | Actor | Key elements |
 |---|--------|-------|--------------|
 | 1 | Auth (Login/Register) | Client | Email/password login, register toggle |
@@ -29,3 +33,5 @@ the Philippines (PHP pricing, local names and phone number format).
 - No screen yet for service catalog management (staff adding/editing
   services or prices).
 - No error/validation states shown (e.g. failed login, fully booked day).
+  The built app shows these as on-page messages, but the wireframe itself
+  was never updated.
