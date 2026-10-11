@@ -194,7 +194,6 @@
             serviceName: state.service.name,
         }));
 
-        // TODO (step 3): window.location.href = 'book-schedule.html';
-        showMessage('Selection saved. The date and time screen is built in the next step.', 'ok');
+        window.location.href = 'book-schedule.html';
     });
 })();
