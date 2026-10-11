@@ -1,0 +1,11 @@
+/* ALTF4 app — shared styles (matches the wireframe board). */
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+input:focus, select:focus, button:focus-visible {
+    outline: 2px solid #E60000;
+    outline-offset: 1px;
+}
+button:disabled { opacity: 0.5; cursor: not-allowed; }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTF4 - Client Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <main class="w-full max-w-sm bg-black border-2 border-zinc-800 rounded-lg p-6">
+        <div class="text-center mb-8 mt-2">
+            <h1 class="text-2xl font-black italic">ALT<span class="text-altRed">F4</span></h1>
+            <p class="text-xs text-zinc-500 mt-1">Client Portal</p>
+        </div>
+
+        <div class="flex border-b border-zinc-800 mb-6 text-sm" role="tablist">
+            <button id="tab-login" type="button" role="tab" class="w-1/2 pb-2 text-center font-bold text-altRed border-b-2 border-altRed">Log In</button>
+            <button id="tab-register" type="button" role="tab" class="w-1/2 pb-2 text-center text-zinc-500 border-b-2 border-transparent">Register</button>
+        </div>
+
+        <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
+
+        <form id="login-form" class="space-y-4" novalidate>
+            <input id="login-email" type="email" autocomplete="email" placeholder="juan.delacruz@email.com" required
+                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+            <input id="login-password" type="password" autocomplete="current-password" placeholder="Password" required
+                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+            <button id="login-btn" type="submit" class="w-full bg-altRed text-white font-bold py-3 mt-2 text-sm uppercase">Secure Login</button>
+        </form>
+
+        <form id="register-form" class="space-y-4 hidden" novalidate>
+            <input id="reg-name" type="text" autocomplete="name" placeholder="Full name" required
+                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+            <input id="reg-phone" type="tel" autocomplete="tel" placeholder="Mobile number (0917-123-4567)" required
+                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+            <input id="reg-email" type="email" autocomplete="email" placeholder="Email" required
+                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+            <input id="reg-password" type="password" autocomplete="new-password" placeholder="Password (at least 8 characters)" required
+                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+            <button id="reg-btn" type="submit" class="w-full bg-altRed text-white font-bold py-3 mt-2 text-sm uppercase">Create Account</button>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
