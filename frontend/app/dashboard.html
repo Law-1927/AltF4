@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTF4 - Staff Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="min-h-screen p-4 py-8">
+
+    <main class="w-full max-w-4xl mx-auto bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
+        <header class="bg-zinc-800 border-b border-zinc-700 px-6 py-3 flex justify-between items-center text-xs font-bold uppercase text-zinc-300">
+            <span>Staff Dashboard</span>
+            <span class="flex gap-4">
+                <a href="home.html" class="hover:text-white">Home</a>
+                <button id="signout" type="button" class="hover:text-white uppercase">Sign out</button>
+            </span>
+        </header>
+
+        <div class="p-6">
+            <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
+
+            <div class="flex flex-wrap justify-between items-end gap-4 mb-6">
+                <h1 class="font-bold uppercase border-l-4 border-altRed pl-2">Daily Operations</h1>
+                <div class="flex items-center gap-2">
+                    <button id="prev" type="button" aria-label="Previous day" class="border border-zinc-700 px-3 py-1 text-xs hover:border-altRed">&lt;</button>
+                    <input id="date" type="date" class="bg-black border border-zinc-700 p-2 text-xs text-white">
+                    <button id="next" type="button" aria-label="Next day" class="border border-zinc-700 px-3 py-1 text-xs hover:border-altRed">&gt;</button>
+                    <button id="today" type="button" class="border border-zinc-700 px-3 py-1 text-xs hover:border-altRed uppercase font-bold">Today</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-6 text-center">
+                <div class="bg-zinc-900 border border-zinc-800 p-3">
+                    <p class="text-[10px] uppercase text-zinc-500">Bookings</p>
+                    <p id="st-active" class="text-xl font-black">0</p>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-3">
+                    <p class="text-[10px] uppercase text-zinc-500">Completed</p>
+                    <p id="st-completed" class="text-xl font-black">0</p>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-3">
+                    <p class="text-[10px] uppercase text-zinc-500">Revenue</p>
+                    <p id="st-revenue" class="text-xl font-black text-altRed">₱ 0</p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse min-w-[560px]">
+                    <thead>
+                        <tr class="border-b border-zinc-800 text-zinc-500 uppercase">
+                            <th class="pb-2 pr-3">Time</th>
+                            <th class="pb-2 pr-3">Client / Car</th>
+                            <th class="pb-2 pr-3">Service</th>
+                            <th class="pb-2 pr-3 text-right">Total</th>
+                            <th class="pb-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                </table>
+            </div>
+            <p id="empty" class="hidden text-xs text-zinc-500 text-center py-8">No bookings on this day.</p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/shop-config.js"></script>
+    <script src="js/slots.js"></script>
+    <script src="js/ops.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
-// ALTF4 — home page. Shows who is signed in and routes by role.
-// Clients get the booking link; the staff dashboard replaces the staff note later.
+// ALTF4 — home page. Shows who is signed in and routes by role:
+// clients get the booking link, staff and admins get the dashboard link.
 (async function () {
     'use strict';
 
@@ -15,10 +15,8 @@
         document.getElementById('who').textContent = profile.full_name || profile.email;
         document.getElementById('email').textContent = profile.email || session.user.email;
         document.getElementById('role').textContent = profile.role;
-        document.getElementById('next').textContent = staff
-            ? 'Staff account: the dashboard comes next.'
-            : '';
         document.getElementById('book-link').classList.toggle('hidden', staff);
+        document.getElementById('dash-link').classList.toggle('hidden', !staff);
 
         status.classList.add('hidden');
         document.getElementById('account').classList.remove('hidden');
