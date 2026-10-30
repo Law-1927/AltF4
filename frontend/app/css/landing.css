@@ -202,6 +202,70 @@ footer { padding: 36px 9% 20px; background: #080808; color: #fff; }
 
 :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 
+.auth-modal {
+    position: fixed;
+    z-index: 30;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.auth-modal.open { display: flex; }
+.auth-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: rgba(0, 0, 0, .76);
+    backdrop-filter: blur(5px);
+}
+.auth-panel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: min(100%, 500px);
+    max-height: min(760px, calc(100dvh - 40px));
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #dedbd6;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, .4);
+}
+.auth-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-bottom: 1px solid #e8e6e2;
+}
+.auth-panel-header h2 {
+    margin: 0;
+    font: 700 13px Montserrat, sans-serif;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+.auth-close {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background: transparent;
+    color: #555;
+    cursor: pointer;
+    font-size: 25px;
+    line-height: 1;
+}
+.auth-panel iframe {
+    display: block;
+    width: 100%;
+    height: min(620px, calc(100dvh - 100px));
+    border: 0;
+    background: #fff;
+}
+body.auth-open { overflow: hidden; }
+
 @media (max-width: 900px) {
     .site-header { height: 75px; padding: 0 5%; }
     .main-nav { gap: 17px; }
@@ -250,6 +314,9 @@ footer { padding: 36px 9% 20px; background: #080808; color: #fff; }
     .cta { align-items: flex-start; flex-direction: column; padding-top: 70px; padding-bottom: 70px; }
     .footer-top { align-items: flex-start; flex-direction: column; gap: 25px; }
     .footer-bottom { flex-wrap: wrap; }
+    .auth-modal { padding: 10px; }
+    .auth-panel { max-height: calc(100dvh - 20px); }
+    .auth-panel iframe { height: calc(100dvh - 74px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

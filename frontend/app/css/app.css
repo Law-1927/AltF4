@@ -210,3 +210,23 @@ main[class] tbody tr:hover {
         gap: 12px;
     }
 }
+
+html.auth-embedded body {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    background: transparent;
+}
+
+html.auth-embedded body::before {
+    display: none;
+}
+
+html.auth-embedded main[class] {
+    width: 100%;
+    max-width: none;
+    border: 0 !important;
+    border-radius: 0;
+    padding: 18px;
+    box-shadow: none;
+}

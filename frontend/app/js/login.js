@@ -4,6 +4,12 @@
 
     const $ = (id) => document.getElementById(id);
     const msg = $('msg');
+    const embedded = new URLSearchParams(window.location.search).get('embed') === '1';
+
+    function goHome() {
+        const destination = embedded ? window.top : window;
+        destination.location.replace('home.html');
+    }
 
     function showMessage(text, kind) {
         // textContent (not innerHTML) so server text can never inject markup.
@@ -40,7 +46,7 @@
         try {
             const profile = await ALT.getMyProfile(data.session.user.id);
             if (profile) {
-                window.location.replace('home.html');
+                goHome();
                 return;
             }
 
@@ -70,7 +76,7 @@
                 ? 'Please confirm your email first, then log in.'
                 : 'Incorrect email or password.');
         }
-        window.location.replace('home.html');
+        goHome();
     });
 
     $('register-form').addEventListener('submit', async (e) => {
@@ -105,6 +111,6 @@
             $('login-email').value = email;
             return showMessage('Account created. Check your email to confirm it, then log in.', 'ok');
         }
-        window.location.replace('home.html');
+        goHome();
     });
 })();
