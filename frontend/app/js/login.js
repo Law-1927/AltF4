@@ -32,8 +32,22 @@
     $('tab-register').addEventListener('click', () => setTab('register'));
 
     // Already signed in? Skip the form.
-    ALT.db.auth.getSession().then(({ data }) => {
-        if (data.session) window.location.replace('home.html');
+    ALT.db.auth.getSession().then(async ({ data, error }) => {
+        if (error) return showMessage('Could not verify your session. ' + error.message);
+        if (!data.session) return;
+
+        try {
+            const profile = await ALT.getMyProfile(data.session.user.id);
+            if (profile) {
+                window.location.replace('home.html');
+                return;
+            }
+
+            await ALT.signOut('local');
+            showMessage('This account is no longer available. You can log in or register again.');
+        } catch (err) {
+            showMessage('Could not verify your account. ' + err.message);
+        }
     });
 
     $('login-form').addEventListener('submit', async (e) => {

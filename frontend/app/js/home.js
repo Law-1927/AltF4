@@ -9,7 +9,10 @@
     const status = document.getElementById('status');
     try {
         const profile = await ALT.getMyProfile(session.user.id);
-        if (!profile) throw new Error('No profile row found for this account.');
+        if (!profile) {
+            await ALT.signOut('local');
+            return;
+        }
 
         const staff = ALT.isStaff(profile.role);
         document.getElementById('who').textContent = profile.full_name || profile.email;

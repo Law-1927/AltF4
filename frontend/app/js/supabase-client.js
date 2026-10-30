@@ -36,8 +36,9 @@
         return role === 'staff' || role === 'admin';
     }
 
-    async function signOut() {
-        await client.auth.signOut();
+    async function signOut(scope) {
+        const { error } = await client.auth.signOut(scope ? { scope } : undefined);
+        if (error) throw error;
         window.location.replace('login.html');
     }
 
