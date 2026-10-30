@@ -30,6 +30,7 @@
 
     $('tab-login').addEventListener('click', () => setTab('login'));
     $('tab-register').addEventListener('click', () => setTab('register'));
+    setTab(new URLSearchParams(window.location.search).get('mode') === 'register' ? 'register' : 'login');
 
     // Already signed in? Skip the form.
     ALT.db.auth.getSession().then(async ({ data, error }) => {
