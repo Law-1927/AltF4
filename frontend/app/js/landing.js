@@ -49,6 +49,37 @@
         link.addEventListener('click', () => setMenuOpen(false));
     });
 
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (event) => {
+            if (event.defaultPrevented || event.button !== 0 ||
+                event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+            const hash = anchor.getAttribute('href').slice(1);
+            if (!hash) return;
+
+            let targetId;
+            try {
+                targetId = decodeURIComponent(hash);
+            } catch {
+                return;
+            }
+
+            const target = document.getElementById(targetId);
+            if (!target) return;
+
+            event.preventDefault();
+            target.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                    ? 'auto'
+                    : 'smooth',
+                block: 'start',
+            });
+            if (window.location.hash !== anchor.getAttribute('href')) {
+                window.history.pushState(null, '', anchor.getAttribute('href'));
+            }
+        });
+    });
+
     function openAuth(mode) {
         previouslyFocused = document.activeElement;
         authFrame.style.height = '0px';
