@@ -27,9 +27,7 @@ body::before {
     z-index: -1;
     inset: -5px;
     content: "";
-    background:
-        linear-gradient(rgba(245, 245, 243, 0.88), rgba(245, 245, 243, 0.88)),
-        url("../assets/shimmer-shield-design.png") center / cover no-repeat;
+    background: url("../assets/shimmer-shield-design.png") center / cover no-repeat;
     filter: blur(5px);
 }
 
