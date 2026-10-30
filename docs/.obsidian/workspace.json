@@ -1,0 +1,220 @@
+{
+  "main": {
+    "id": "dc237cd5da9b8dc0",
+    "type": "split",
+    "children": [
+      {
+        "id": "379eadf9d589fe1d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6400562d297eb56c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "github/copilot-instructions.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "copilot-instructions"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "bd43694969cbba01",
+    "type": "split",
+    "children": [
+      {
+        "id": "c3db4fc943512e3e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0d9e71025a9609a2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "33c9564cfee8b563",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "1fcd39f03d28f97a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bb004ac6d0f8c3c4",
+    "type": "split",
+    "children": [
+      {
+        "id": "d260370493d4a0c9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2ae18292dc6b60fe",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "github/copilot-instructions.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "ce1ebb6e0559ca1c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "github/copilot-instructions.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "765b83c1e1da8762",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "d947cb389ecab16f",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "8aa645a84cc562d5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "github/copilot-instructions.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "6400562d297eb56c",
+  "lastOpenFiles": [
+    "github/copilot-instructions.md",
+    "github",
+    "SETUP.md",
+    "wireframes.md",
+    "architecture.md",
+    "06 - AI Engineering/Experiment Record.md",
+    "06 - AI Engineering/Lesson 1 Recon Output.md",
+    "06 - AI Engineering/Task Card.md",
+    "05 - Decisions/Decision Log.md",
+    "05 - Decisions",
+    "06 - AI Engineering/05 - Decisions/Decision Log.md",
+    "06 - AI Engineering/05 - Decisions",
+    "06 - AI Engineering/Prompt Library.md",
+    "00 - Index/Project Home.md",
+    "06 - AI Engineering",
+    "Decision Log.md",
+    "04 - Testing/Testing Strategy.md",
+    "03 - Development/Development Workflow.md",
+    "02 - Architecture/System Architecture.md",
+    "01 - Project/Project Overview.md",
+    "00 - Index",
+    "Untitled.md",
+    "04 - Testing",
+    "03 - Development",
+    "02 - Architecture",
+    "01 - Project"
+  ]
+}

@@ -16,7 +16,9 @@
         document.getElementById('email').textContent = profile.email || session.user.email;
         document.getElementById('role').textContent = profile.role;
         document.getElementById('book-link').classList.toggle('hidden', staff);
+        document.getElementById('history-link').classList.toggle('hidden', staff);
         document.getElementById('dash-link').classList.toggle('hidden', !staff);
+        document.getElementById('reports-link').classList.toggle('hidden', !staff);
 
         status.classList.add('hidden');
         document.getElementById('account').classList.remove('hidden');

@@ -24,8 +24,8 @@ is no build step: open the folder in VS Code and use **Live Server**
 | 3. Date & Time Sync | `book-schedule.html` | Clients | Built |
 | 4. Confirmation | `book-confirmation.html` | Clients | Built |
 | 5–6. Staff Dashboard | `dashboard.html` | Staff, admin | Built |
-| 7. Automated Notice | — | Clients | Not built |
-| 8. Reports & Storage | — | Staff, admin | Not built |
+| 7. Automated Notice & History | `history.html` | Clients | Built |
+| 8. Reports & Storage | `reports.html` | Staff, admin | Built |
 
 `index.html` simply redirects to `login.html`.
 
@@ -38,7 +38,7 @@ is no build step: open the folder in VS Code and use **Live Server**
 | `shop-config.js` | Opening hours, closed days, and booking window (**placeholder values**) |
 | `slots.js` | Pure date and time-slot logic (no page access) |
 | `ops.js` | Pure dashboard helpers: allowed status changes and daily totals |
-| `login.js`, `home.js`, `book-service.js`, `book-schedule.js`, `book-confirmation.js`, `dashboard.js` | One script per page |
+| `login.js`, `home.js`, `book-service.js`, `book-schedule.js`, `book-confirmation.js`, `dashboard.js`, `history.js`, `reports.js` | One script per page |
 | `theme.js` | Tailwind color theme, same as the wireframe |
 
 Each page loads, in order: Tailwind, `theme.js`, the supabase-js CDN
@@ -53,8 +53,5 @@ script, `supabase-config.js`, `supabase-client.js`, then its own scripts.
 
 ## Known gaps
 
-- No client booking-history screen and no screen showing client notices
-  (wireframe screen 7).
-- No reports or export (wireframe screen 8).
 - No staff screen for managing the service catalog.
 - Opening hours are placeholders and are not enforced by the database.

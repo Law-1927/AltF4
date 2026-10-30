@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTF4 - My Bookings & Notices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="min-h-screen p-4 py-8">
+
+    <main class="w-full max-w-5xl mx-auto bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
+        <header class="bg-zinc-800 border-b border-zinc-700 px-6 py-3 flex justify-between items-center text-xs font-bold uppercase text-zinc-300">
+            <span>My Bookings & Notices</span>
+            <span class="flex gap-4">
+                <a href="book-service.html" class="text-altRed hover:underline">New Booking</a>
+                <a href="home.html" class="hover:text-white">Home</a>
+                <button id="signout" type="button" class="hover:text-white uppercase">Sign out</button>
+            </span>
+        </header>
+
+        <div class="p-6">
+            <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Bookings Column (2 cols on lg) -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="font-bold uppercase text-sm border-l-4 border-altRed pl-2">Active & Upcoming Bookings</h2>
+                        </div>
+                        <div id="upcoming-list" class="space-y-3">
+                            <p class="text-xs text-zinc-500 py-4">Loading bookings…</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="font-bold uppercase text-sm border-l-4 border-zinc-600 pl-2 text-zinc-400">Past & Cancelled History</h2>
+                        </div>
+                        <div id="past-list" class="space-y-3">
+                            <p class="text-xs text-zinc-500 py-4">No past bookings.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notices Column (1 col on lg) -->
+                <div class="lg:col-span-1">
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4 flex flex-col h-full min-h-[420px]">
+                        <div class="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
+                            <h2 class="font-bold uppercase text-xs text-zinc-300">Notifications</h2>
+                            <span id="notices-count" class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-full font-mono">0</span>
+                        </div>
+                        <div id="notices-list" class="space-y-3 flex-1 overflow-y-auto max-h-[560px] pr-1">
+                            <p class="text-xs text-zinc-500 py-4">Loading notices…</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/shop-config.js"></script>
+    <script src="js/slots.js"></script>
+    <script src="js/history.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against Live Server",
+      "url": "http://127.0.0.1:5500",
+      "webRoot": "${workspaceFolder}/frontend/app"
+    },
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "Launch Edge against Live Server",
+      "url": "http://127.0.0.1:5500",
+      "webRoot": "${workspaceFolder}/frontend/app"
+    }
+  ]
+}
