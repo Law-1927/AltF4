@@ -319,6 +319,86 @@ body.auth-open { overflow: hidden; }
     .auth-panel iframe { height: calc(100dvh - 74px); }
 }
 
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --ink: #f0efed;
+    --paper: #151515;
+    --muted: #aaa7a2;
+}
+
+html[data-theme="dark"] .intro-copy,
+html[data-theme="dark"] .section-heading > p,
+html[data-theme="dark"] .eyebrow.dark {
+    color: #b6b2ac;
+}
+
+html[data-theme="dark"] .services {
+    background: #1c1c1c;
+}
+
+html[data-theme="dark"] .service-card {
+    border-color: #3b3a37;
+    background: #242424;
+    color: #f0efed;
+}
+
+html[data-theme="dark"] .service-card.featured {
+    border-color: #4a4844;
+    background: #30302e;
+}
+
+html[data-theme="dark"] .service-card p {
+    color: #aaa7a2;
+}
+
+html[data-theme="dark"] .cta {
+    background: #151515;
+}
+
+html[data-theme="dark"] .auth-panel {
+    border-color: #45433f;
+    background: #1d1d1d;
+    color: #f0efed;
+}
+
+html[data-theme="dark"] .auth-panel-header {
+    border-color: #383633;
+}
+
+html[data-theme="dark"] .auth-close {
+    color: #d3d0cb;
+}
+
+.color-mode-toggle {
+    position: fixed;
+    z-index: 20;
+    right: 22px;
+    bottom: 22px;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid #d0cdc7;
+    border-radius: 50%;
+    background: #fff;
+    color: #171717;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .2);
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    transition: transform .18s ease, background-color .18s ease, color .18s ease;
+}
+
+.color-mode-toggle:hover {
+    transform: translateY(-2px);
+}
+
+html[data-theme="dark"] .color-mode-toggle {
+    border-color: #55524d;
+    background: #242424;
+    color: #f2cf66;
+}
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition-duration: .01ms !important; }

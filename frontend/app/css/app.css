@@ -211,6 +211,149 @@ main[class] tbody tr:hover {
     }
 }
 
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --alt-ink: #f0efed;
+    --alt-muted: #aaa7a2;
+    --alt-paper: #151515;
+    --alt-line: #383633;
+}
+
+html[data-theme="dark"] body::before {
+    background:
+        linear-gradient(rgba(12, 12, 12, 0.9), rgba(12, 12, 12, 0.9)),
+        url("../assets/shimmer-shield-design.png") center / cover no-repeat;
+}
+
+html[data-theme="dark"] main[class] {
+    color: var(--alt-ink);
+    background: rgba(29, 29, 29, 0.98) !important;
+    border-color: #3a3936 !important;
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="dark"] main[class] .text-white {
+    color: #f0efed !important;
+}
+
+html[data-theme="dark"] main[class] button.text-white,
+html[data-theme="dark"] main[class] a.text-white,
+html[data-theme="dark"] main[class] > header .text-white,
+html[data-theme="dark"] main[class] .bg-altRed,
+html[data-theme="dark"] main[class] .bg-altRed .text-white {
+    color: #fff !important;
+}
+
+html[data-theme="dark"] main[class] .text-zinc-200,
+html[data-theme="dark"] main[class] .text-zinc-300 {
+    color: #d3d0cb !important;
+}
+
+html[data-theme="dark"] main[class] .text-zinc-400 {
+    color: #b6b2ac !important;
+}
+
+html[data-theme="dark"] main[class] .text-zinc-500,
+html[data-theme="dark"] main[class] .text-zinc-600,
+html[data-theme="dark"] main[class] .text-zinc-700 {
+    color: #a09c96 !important;
+}
+
+html[data-theme="dark"] main[class] [class*="bg-black"],
+html[data-theme="dark"] main[class] [class*="bg-zinc-950"],
+html[data-theme="dark"] main[class] [class*="bg-zinc-900"] {
+    background-color: #242424 !important;
+}
+
+html[data-theme="dark"] main[class] [class*="bg-zinc-800"] {
+    background-color: #30302e !important;
+}
+
+html[data-theme="dark"] main[class] [class*="border-zinc-900"],
+html[data-theme="dark"] main[class] [class*="border-zinc-800"],
+html[data-theme="dark"] main[class] [class*="border-zinc-700"],
+html[data-theme="dark"] main[class] [class*="border-zinc-600"] {
+    border-color: #484642 !important;
+}
+
+html[data-theme="dark"] main[class] .bg-yellow-950\/30 {
+    background-color: #342b18 !important;
+}
+
+html[data-theme="dark"] main[class] .text-yellow-200 {
+    color: #f1d48c !important;
+}
+
+html[data-theme="dark"] main[class] .bg-red-950\/30 {
+    background-color: #381f1e !important;
+}
+
+html[data-theme="dark"] main[class] .text-red-400 {
+    color: #ff918c !important;
+}
+
+html[data-theme="dark"] main[class] .bg-green-950\/30 {
+    background-color: #1d3022 !important;
+}
+
+html[data-theme="dark"] main[class] .text-green-400 {
+    color: #91d69d !important;
+}
+
+html[data-theme="dark"] main[class] input:not([type="checkbox"]),
+html[data-theme="dark"] main[class] select,
+html[data-theme="dark"] main[class] textarea {
+    color: #f0efed !important;
+    background-color: #242424 !important;
+    border-color: #4a4844 !important;
+}
+
+html[data-theme="dark"] main[class] input::placeholder,
+html[data-theme="dark"] main[class] textarea::placeholder {
+    color: #aaa7a2;
+}
+
+html[data-theme="dark"] main[class] table {
+    color: #e4e2de;
+}
+
+html[data-theme="dark"] main[class] thead {
+    background-color: #292927;
+}
+
+html[data-theme="dark"] main[class] tbody tr:hover {
+    background-color: #292927;
+}
+
+.color-mode-toggle {
+    position: fixed;
+    z-index: 20;
+    right: 22px;
+    bottom: 22px;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid #d0cdc7;
+    border-radius: 50%;
+    background: #fff;
+    color: #171717;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.color-mode-toggle:hover {
+    transform: translateY(-2px);
+}
+
+html[data-theme="dark"] .color-mode-toggle {
+    border-color: #55524d;
+    background: #242424;
+    color: #f2cf66;
+}
+
 html.auth-embedded body {
     display: block;
     min-height: 0;
@@ -229,4 +372,8 @@ html.auth-embedded main[class] {
     border-radius: 0;
     padding: 18px;
     box-shadow: none;
+}
+
+html.auth-embedded .color-mode-toggle {
+    display: none;
 }

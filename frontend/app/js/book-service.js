@@ -19,7 +19,6 @@
         $('msg').textContent = '';
     }
 
-    const peso = (n) => '₱ ' + Number(n).toLocaleString('en-PH', { maximumFractionDigits: 2 });
     function duration(mins) {
         if (mins >= 60 && mins % 60 === 0) {
             const h = mins / 60;
@@ -75,13 +74,10 @@
             card.className = 'w-full text-left border border-zinc-800 p-3';
 
             const row = document.createElement('div');
-            row.className = 'flex justify-between font-bold text-sm mb-1';
+            row.className = 'font-bold text-sm mb-1';
             const name = document.createElement('span');
             name.textContent = s.name;
-            const price = document.createElement('span');
-            price.className = 'text-altRed';
-            price.textContent = peso(s.price_php);
-            row.append(name, price);
+            row.append(name);
 
             const detail = document.createElement('p');
             detail.className = 'text-zinc-500';
@@ -136,9 +132,9 @@
             .eq('owner_id', session.user.id)
             .order('created_at'),
         ALT.db.from('services')
-            .select('id, name, description, price_php, duration_mins, warranty_years')
+            .select('id, name, description, duration_mins, warranty_years')
             .eq('is_active', true)
-            .order('price_php'),
+            .order('name'),
     ]);
 
     if (vRes.error) showMessage('Could not load your vehicles. ' + vRes.error.message);
