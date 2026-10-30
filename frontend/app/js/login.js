@@ -32,13 +32,9 @@
     $('tab-register').addEventListener('click', () => setTab('register'));
 
     // Already signed in? Skip the form.
-        // TEMPORARY: set to true to restore "already signed in -> go to home".
-    const SKIP_FORM_IF_SIGNED_IN = false;
-    if (SKIP_FORM_IF_SIGNED_IN) {
-        ALT.db.auth.getSession().then(({ data }) => {
-            if (data.session) window.location.replace('home.html');
-        });
-    }
+    ALT.db.auth.getSession().then(({ data }) => {
+        if (data.session) window.location.replace('home.html');
+    });
 
     $('login-form').addEventListener('submit', async (e) => {
         e.preventDefault();
