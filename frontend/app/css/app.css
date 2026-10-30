@@ -40,6 +40,10 @@ main[class] {
     box-shadow: 0 18px 55px rgba(17, 17, 17, 0.12);
 }
 
+main[class] a[hidden] {
+    display: none !important;
+}
+
 main[class] > header {
     color: #f5f5f5 !important;
     background: #080808 !important;
