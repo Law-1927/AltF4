@@ -260,7 +260,9 @@ footer { padding: 36px 9% 20px; background: #080808; color: #fff; }
 .auth-panel iframe {
     display: block;
     width: 100%;
-    height: min(620px, calc(100dvh - 100px));
+    height: 0;
+    min-height: 0;
+    flex: 0 1 auto;
     border: 0;
     background: #fff;
 }
@@ -316,7 +318,6 @@ body.auth-open { overflow: hidden; }
     .footer-bottom { flex-wrap: wrap; }
     .auth-modal { padding: 10px; }
     .auth-panel { max-height: calc(100dvh - 20px); }
-    .auth-panel iframe { height: calc(100dvh - 74px); }
 }
 
 html[data-theme="dark"] {
