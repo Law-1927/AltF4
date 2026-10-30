@@ -404,3 +404,228 @@ html[data-theme="dark"] .color-mode-toggle {
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+body {
+    position: relative;
+    isolation: isolate;
+}
+
+.ambient-effects {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+main,
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+.ambient-glow {
+    position: absolute;
+    inset: -25%;
+    background:
+        radial-gradient(ellipse at 12% 18%, rgba(255, 24, 53, .14), transparent 31%),
+        radial-gradient(ellipse at 87% 62%, rgba(136, 35, 255, .09), transparent 32%),
+        radial-gradient(ellipse at 55% 100%, rgba(255, 100, 45, .08), transparent 34%);
+    animation: fx-ambient-drift 17s ease-in-out infinite alternate;
+}
+
+.running-line {
+    position: absolute;
+    width: 38vw;
+    height: 1px;
+    opacity: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 61, 82, .72), transparent);
+    box-shadow: 0 0 14px rgba(255, 38, 61, .55);
+    transform: rotate(-28deg);
+    animation: fx-line-run 10s linear infinite;
+}
+
+.line-one { top: 26%; left: -42%; }
+.line-two { top: 58%; left: -42%; animation-delay: 3.4s; }
+.line-three { top: 82%; left: -42%; animation-delay: 6.8s; }
+
+.ambient-particles,
+.galaxy-particles {
+    position: absolute;
+    inset: 0;
+}
+
+.ambient-particles i,
+.galaxy-particles span {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    background: #ff596b;
+    box-shadow: 0 0 12px 2px rgba(255, 38, 61, .45);
+    animation: fx-particle-rise 13s linear infinite;
+}
+
+.ambient-particles i:nth-child(1) { left: 8%; top: 88%; width: 3px; height: 3px; }
+.ambient-particles i:nth-child(2) { left: 24%; top: 96%; width: 2px; height: 2px; animation-delay: 2s; }
+.ambient-particles i:nth-child(3) { left: 43%; top: 92%; width: 4px; height: 4px; animation-delay: 5s; }
+.ambient-particles i:nth-child(4) { left: 62%; top: 99%; width: 2px; height: 2px; animation-delay: 7s; }
+.ambient-particles i:nth-child(5) { left: 79%; top: 90%; width: 3px; height: 3px; animation-delay: 3s; }
+.ambient-particles i:nth-child(6) { left: 94%; top: 97%; width: 2px; height: 2px; animation-delay: 9s; }
+
+.galaxy-particles span {
+    animation-name: fx-particle-twinkle;
+    animation-duration: 4s;
+    animation-direction: alternate;
+}
+
+.galaxy-particles span:nth-child(1) { left: 12%; top: 22%; width: 2px; height: 2px; }
+.galaxy-particles span:nth-child(2) { left: 35%; top: 68%; width: 3px; height: 3px; animation-delay: 1.2s; }
+.galaxy-particles span:nth-child(3) { left: 57%; top: 18%; width: 2px; height: 2px; animation-delay: 2s; }
+.galaxy-particles span:nth-child(4) { left: 72%; top: 42%; width: 3px; height: 3px; animation-delay: .6s; }
+.galaxy-particles span:nth-child(5) { left: 88%; top: 76%; width: 2px; height: 2px; animation-delay: 1.8s; }
+.galaxy-particles span:nth-child(6) { left: 4%; top: 57%; width: 2px; height: 2px; animation-delay: 2.5s; }
+
+.hero h1,
+.intro h2,
+.section-heading h2,
+.process h2,
+.cta h2,
+.service-card h3,
+.step h3 {
+    text-shadow: 0 0 12px rgba(255, 255, 255, .28), 0 0 24px rgba(255, 38, 61, .34);
+}
+
+.hero-content h1 {
+    animation: fx-fade-in 1.2s ease-out both;
+}
+
+.hero-content .eyebrow,
+.hero-content .hero-lead,
+.hero-content .hero-note {
+    animation: fx-slide-in 1.4s ease-out .15s both;
+}
+
+.hero-actions {
+    animation: fx-bounce-in 1.6s ease-out .25s both;
+}
+
+.hero-actions .btn-red {
+    animation: fx-cta-pulse 2.4s ease-in-out 1.8s infinite;
+}
+
+.btn {
+    transition: background-color .2s ease, border-color .2s ease, transform .3s ease, box-shadow .3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px) scale(1.025);
+}
+
+.btn-red:hover {
+    box-shadow: 0 0 18px rgba(255, 38, 61, .55);
+}
+
+.service-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+.service-card::after {
+    position: absolute;
+    top: -50%;
+    left: -80%;
+    width: 45%;
+    height: 200%;
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .18), transparent);
+    transform: rotate(22deg);
+    transition: left .65s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(255, 38, 61, .14);
+}
+
+.service-card:hover::after { left: 140%; }
+
+.auth-panel {
+    animation: fx-modal-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes fx-ambient-drift {
+    from { transform: translate3d(-2%, -1%, 0) scale(1); }
+    to { transform: translate3d(2%, 1%, 0) scale(1.05); }
+}
+
+@keyframes fx-line-run {
+    0% { opacity: 0; transform: translateX(0) rotate(-28deg); }
+    12%, 78% { opacity: .7; }
+    100% { opacity: 0; transform: translateX(170vw) rotate(-28deg); }
+}
+
+@keyframes fx-particle-rise {
+    from { opacity: 0; transform: translateY(0) scale(.7); }
+    15%, 80% { opacity: .65; }
+    to { opacity: 0; transform: translateY(-105vh) scale(1.2); }
+}
+
+@keyframes fx-particle-twinkle {
+    from { opacity: .18; transform: scale(.7); }
+    to { opacity: .8; transform: scale(1.25); }
+}
+
+@keyframes fx-fade-in {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fx-slide-in {
+    from { opacity: 0; transform: translateX(-28px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fx-bounce-in {
+    0% { opacity: 0; transform: scale(.94); }
+    65% { opacity: 1; transform: scale(1.035); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fx-cta-pulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 38, 61, .28); }
+    50% { box-shadow: 0 0 20px rgba(255, 38, 61, .65); }
+}
+
+@keyframes fx-modal-glow {
+    from { box-shadow: 0 0 22px rgba(255, 38, 61, .12); }
+    to { box-shadow: 0 0 28px rgba(255, 38, 61, .34); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ambient-glow,
+    .running-line,
+    .ambient-particles i,
+    .galaxy-particles span,
+    .hero-content h1,
+    .hero-content .eyebrow,
+    .hero-content .hero-lead,
+    .hero-content .hero-note,
+    .hero-actions,
+    .hero-actions .btn-red,
+    .auth-panel {
+        animation: none !important;
+    }
+
+    .hero-content h1,
+    .hero-content .eyebrow,
+    .hero-content .hero-lead,
+    .hero-content .hero-note,
+    .hero-actions {
+        opacity: 1;
+        transform: none;
+    }
+
+    .service-card::after { display: none; }
+}
