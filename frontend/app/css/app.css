@@ -1,22 +1,212 @@
-/* ALTF4 app — shared styles (matches the wireframe board). */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap');
+
+:root {
+    --alt-red: #d71920;
+    --alt-red-dark: #a90e15;
+    --alt-ink: #171717;
+    --alt-muted: #6c6c6c;
+    --alt-paper: #f5f5f3;
+    --alt-line: #e5e3df;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
     position: relative;
     isolation: isolate;
     min-height: 100vh;
-    background-color: #0b0b0b;
-    color: #fff;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: var(--alt-paper);
+    color: var(--alt-ink);
+    font-family: 'DM Sans', 'Segoe UI', Tahoma, sans-serif;
 }
+
 body::before {
     position: fixed;
     z-index: -1;
     inset: -5px;
     content: "";
-    background: url("../assets/altf4-background.png") center / cover no-repeat;
+    background:
+        linear-gradient(rgba(245, 245, 243, 0.88), rgba(245, 245, 243, 0.88)),
+        url("../assets/shimmer-shield-design.png") center / cover no-repeat;
     filter: blur(5px);
 }
-input:focus, select:focus, button:focus-visible {
-    outline: 2px solid #E60000;
-    outline-offset: 1px;
+
+main[class] {
+    position: relative;
+    color: var(--alt-ink);
+    background: rgba(255, 255, 255, 0.97) !important;
+    border: 1px solid var(--alt-line) !important;
+    border-radius: 8px;
+    box-shadow: 0 18px 55px rgba(17, 17, 17, 0.12);
 }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+main[class] > header {
+    color: #f5f5f5 !important;
+    background: #080808 !important;
+    border-color: #292929 !important;
+}
+
+main[class] > header a,
+main[class] > header button,
+main[class] > header span {
+    color: #d0d0d0;
+}
+
+main[class] > header a:hover,
+main[class] > header button:hover {
+    color: #fff;
+}
+
+main[class] > header .text-altRed {
+    color: var(--alt-red) !important;
+}
+
+main[class] h1,
+main[class] h2,
+main[class] h3 {
+    font-family: Montserrat, 'Segoe UI', sans-serif;
+    letter-spacing: -0.025em;
+}
+
+main[class] .text-white {
+    color: var(--alt-ink) !important;
+}
+
+main[class] button.text-white,
+main[class] a.text-white,
+main[class] > header .text-white {
+    color: #fff !important;
+}
+
+main[class] .text-zinc-200,
+main[class] .text-zinc-300 {
+    color: #343434 !important;
+}
+
+main[class] .text-zinc-400 {
+    color: #555 !important;
+}
+
+main[class] .text-zinc-500 {
+    color: #737373 !important;
+}
+
+main[class] .text-zinc-600,
+main[class] .text-zinc-700 {
+    color: #888 !important;
+}
+
+main[class] [class*="bg-black"],
+main[class] [class*="bg-zinc-950"],
+main[class] [class*="bg-zinc-900"] {
+    background-color: #f8f8f6 !important;
+}
+
+main[class] [class*="bg-zinc-800"] {
+    background-color: #efeeeb !important;
+}
+
+main[class] [class*="border-zinc-900"],
+main[class] [class*="border-zinc-800"],
+main[class] [class*="border-zinc-700"] {
+    border-color: var(--alt-line) !important;
+}
+
+main[class] [class*="border-zinc-600"] {
+    border-color: #d2cfca !important;
+}
+
+main[class] .bg-altRed {
+    background-color: var(--alt-red) !important;
+}
+
+main[class] .bg-altRed:hover,
+main[class] .hover\:bg-red-700:hover {
+    background-color: var(--alt-red-dark) !important;
+}
+
+main[class] .text-altRed,
+main[class] .border-altRed {
+    color: var(--alt-red) !important;
+    border-color: var(--alt-red) !important;
+}
+
+main[class] .bg-yellow-950\/30 {
+    background-color: #fff7e6 !important;
+}
+
+main[class] .text-yellow-200 {
+    color: #76520d !important;
+}
+
+main[class] .bg-red-950\/30 {
+    background-color: #fff0ef !important;
+}
+
+main[class] .text-red-400 {
+    color: #a90e15 !important;
+}
+
+main[class] .bg-green-950\/30 {
+    background-color: #edf8ef !important;
+}
+
+main[class] .text-green-400 {
+    color: #28743a !important;
+}
+
+main[class] input:not([type="checkbox"]),
+main[class] select,
+main[class] textarea {
+    color: #222 !important;
+    background-color: #fff !important;
+    border: 1px solid #d8d6d1 !important;
+    border-radius: 3px;
+}
+
+main[class] input::placeholder,
+main[class] textarea::placeholder {
+    color: #8a8a8a;
+}
+
+main[class] input:focus,
+main[class] select:focus,
+main[class] textarea:focus,
+main[class] button:focus-visible,
+main[class] a:focus-visible {
+    outline: 2px solid var(--alt-red);
+    outline-offset: 2px;
+}
+
+main[class] button:not(:disabled) {
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+main[class] button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+main[class] table {
+    color: #282828;
+}
+
+main[class] thead {
+    background-color: #f1f0ed;
+}
+
+main[class] tbody tr:hover {
+    background-color: #f8f7f5;
+}
+
+@media (max-width: 640px) {
+    main[class] {
+        border-radius: 5px;
+    }
+
+    main[class] > header {
+        gap: 12px;
+    }
+}
