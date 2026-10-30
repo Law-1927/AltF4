@@ -97,11 +97,16 @@ This is the simplest route and what the team should use.
 2. Paste the full contents of
    `supabase/migrations/20261009000000_initial_schema.sql`.
 3. Click **Run**. It should finish with no errors.
+4. In a separate query, run the full contents of
+   `supabase/migrations/20261030000000_security_hardening.sql`.
 
 It creates the tables, the double-booking rule, row-level security, the
 notification triggers, the `reports_daily` view, and the real-time
-publication. **Run it once.** Running it twice fails because the tables
-already exist. To start over, create a fresh Supabase project (simplest) or drop the tables first.
+publication. The follow-up hardening migration adds checks for future profile writes,
+appointment update guards, staff access auditing, and restricted helper
+function grants. **Run each migration once, in timestamp order.** The initial
+migration is not idempotent. To start over, create a fresh Supabase project
+(simplest) or drop the tables first.
 
 ### 4.3 Create your first admin
 
@@ -259,17 +264,30 @@ When the system is ready for the client:
 
 1. Create a **second** Supabase project for production. Do not test against
    real client data.
-2. Apply the same migration to it.
-3. Host the frontend on a static host (Cloudflare Pages, Netlify, Vercel, or
-   GitHub Pages all have free tiers) with the production URL and anon key.
-4. In Supabase **Authentication > URL Configuration**, set the Site URL and
-   redirect URLs to the deployed address.
-5. Turn on email confirmation and review password rules.
-6. Create the real admin and staff accounts.
-7. Check the **free tier limits**. Free Supabase projects can pause after a
+2. Apply every migration in timestamp order.
+3. Before deploying, run `npm ci` and `npm run build:app-css` from the
+   repository root. Commit the generated `frontend/app/css/tailwind.css`.
+4. Host the frontend on Vercel with the project root set to `frontend/app`;
+   this loads `frontend/app/vercel.json`, which configures CSP and other
+   response security headers. Verify the headers on the deployed pages.
+5. In Supabase **Authentication > URL Configuration**, set the Site URL and
+   allow only the production callback URLs needed by the app. Remove local
+   development URLs from the production allow list.
+6. Under Supabase **Authentication > Sign In / Providers > Email**, set the
+   server-enforced minimum password length to at least 8 characters. Configure
+   signup rate limits and enable CAPTCHA protection with a supported provider;
+   keep its secret in Supabase settings, never in the frontend. Review email
+   confirmation and password-strength settings as well.
+7. Create the real admin and staff accounts.
+8. Check the **free tier limits**. Free Supabase projects can pause after a
    period of inactivity, which would break a live booking system. Confirm the
    current limits on Supabase's pricing page and decide whether the client
    needs a paid plan.
+
+The database booking schedule and account-erasure behavior are intentionally
+not guessed in this repository. Confirm shop hours, booking horizon, pending
+booking limits, and the customer-record retention policy with the client
+before adding those rules to a future migration.
 
 ---
 

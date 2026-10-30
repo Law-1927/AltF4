@@ -1,6 +1,10 @@
-// ALTF4 app — Tailwind theme (same colors as the wireframe board).
-// Must load directly AFTER the Tailwind CDN <script> tag.
-tailwind.config = {
+module.exports = {
+    content: [
+        './frontend/app/*.html',
+        './frontend/app/js/**/*.js',
+        './frontend/wireframes/*.html',
+        './frontend/wireframes/js/**/*.js',
+    ],
     theme: {
         extend: {
             colors: {

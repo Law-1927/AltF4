@@ -164,11 +164,21 @@
         render(data || []);
     }
 
-    function exportToCsv() {
+    async function recordStaffAccess(action) {
+        const { error } = await ALT.db.rpc('record_staff_access', { p_action: action });
+        if (error) {
+            showMessage('Could not write the staff access audit record. ' + error.message, 'error');
+            return false;
+        }
+        return true;
+    }
+
+    async function exportToCsv() {
         if (!cachedRows || cachedRows.length === 0) {
             showMessage('No records to export in the current selection.', 'error');
             return;
         }
+        if (!await recordStaffAccess('reports_export')) return;
 
         const headers = [
             'Reference ID',
@@ -185,9 +195,10 @@
             'Total Due (PHP)'
         ];
 
-        const escapeCsv = (val) => {
+        const escapeCsv = (val, isPhone = false) => {
             let s = (val === null || val === undefined) ? '' : String(val);
-            if (/^[\u0000-\u0020]*[=+\-@]/.test(s)) s = "'" + s;
+            const plainPhone = isPhone && /^\+?[0-9][0-9 ()-]*$/.test(s);
+            if (!plainPhone && /^[\u0000-\u0020]*[=+\-@]/.test(s)) s = "'" + s;
             if (s.includes('"') || s.includes(',') || s.includes('\n') || s.includes('\r')) {
                 return '"' + s.replace(/"/g, '""') + '"';
             }
@@ -218,7 +229,9 @@
                 r.total_due_php
             ];
 
-            lines.push(row.map(escapeCsv).join(','));
+            lines.push(row.map((value, index) =>
+                escapeCsv(value, headers[index] === 'Client Phone')
+            ).join(','));
         });
 
         const csvContent = lines.join('\r\n');
@@ -298,6 +311,8 @@
     $('filter-service').addEventListener('change', load);
 
     const serviceError = await populateServices();
+
+    if (!await recordStaffAccess('reports_view')) return;
 
     // Default to current month
     setPresetDates('month');

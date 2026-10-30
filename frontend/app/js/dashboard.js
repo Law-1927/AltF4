@@ -261,6 +261,11 @@
         return;
     }
 
+    const { error: auditError } = await ALT.db.rpc('record_staff_access', {
+        p_action: 'dashboard_view',
+    });
+    if (auditError) return showMessage('Could not write the staff access audit record. ' + auditError.message);
+
     $('signout').addEventListener('click', () => ALT.signOut());
     $('date').value = S.todayInManila();
     $('date').addEventListener('change', load);
