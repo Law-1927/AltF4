@@ -112,7 +112,7 @@
         total.append(totalLbl, totalVal);
         right.append(total);
 
-        if (b.status === 'Pending') {
+        if (b.status === 'Pending' && isUpcoming) {
             const cancelBtn = document.createElement('button');
             cancelBtn.type = 'button';
             cancelBtn.className = 'border border-red-900/60 text-red-400 hover:bg-red-950/40 px-2 py-1 text-[10px] uppercase font-bold transition-colors';
@@ -137,8 +137,10 @@
 
         list.forEach((b) => {
             const start = new Date(b.starts_at);
-            // Pending or Ongoing bookings scheduled in the future or active are "upcoming"
-            if ((b.status === 'Pending' || b.status === 'Ongoing') && (start >= now || b.status === 'Pending')) {
+            const end = new Date(b.ends_at);
+            const pendingUpcoming = b.status === 'Pending' && start >= now;
+            const ongoing = b.status === 'Ongoing' && end >= now;
+            if (pendingUpcoming || ongoing) {
                 upcoming.push(b);
             } else {
                 past.push(b);

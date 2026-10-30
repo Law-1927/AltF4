@@ -8,33 +8,33 @@
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="min-h-screen p-4 py-8">
+<body class="min-h-screen p-3 py-4">
 
     <main class="w-full max-w-md mx-auto bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
-        <header class="bg-zinc-900 border-b border-zinc-800 px-6 py-3 flex justify-between items-center text-xs font-bold uppercase text-zinc-400">
+        <header class="bg-zinc-900 border-b border-zinc-800 px-4 py-3 flex justify-between items-center text-xs font-bold uppercase text-zinc-400">
             <span>2. Date &amp; Time Sync</span>
             <a href="book-service.html" class="hover:text-white">Back</a>
         </header>
 
-        <div class="p-6">
+        <div class="p-4">
             <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
 
-            <div id="summary" class="hidden border border-zinc-800 p-3 mb-6 text-xs space-y-1">
+            <div id="summary" class="hidden border border-zinc-800 p-3 mb-4 text-xs space-y-1">
                 <p class="font-bold text-sm"><span id="s-service"></span></p>
                 <p class="text-zinc-400"><span id="s-vehicle"></span></p>
                 <p class="text-zinc-500"><span id="s-duration"></span> · <span id="s-price" class="text-altRed font-bold"></span></p>
             </div>
 
-            <div id="check" class="hidden bg-zinc-900 border border-zinc-800 p-3 text-xs text-zinc-400 mb-6"></div>
+            <div id="check" class="hidden bg-zinc-900 border border-zinc-800 p-3 text-xs text-zinc-400 mb-4"></div>
 
             <h2 class="font-bold text-sm uppercase mb-3">Select Date</h2>
-            <input id="date" type="date" class="w-full bg-black border border-zinc-700 p-3 text-sm text-white mb-6">
+            <input id="date" type="date" class="w-full bg-black border border-zinc-700 p-3 text-sm text-white mb-4">
 
             <h2 class="font-bold text-sm uppercase mb-3">Available Slots</h2>
             <div id="slots" class="grid grid-cols-3 gap-2 text-xs"></div>
 
             <button id="confirm-btn" type="button" disabled
-                    class="w-full bg-altRed text-white font-bold py-3 mt-8 text-sm uppercase">Confirm Booking</button>
+                    class="w-full bg-altRed text-white font-bold py-3 mt-5 text-sm uppercase">Confirm Booking</button>
         </div>
     </main>
 

@@ -132,7 +132,7 @@
 
         let query = ALT.db.from('appointments')
             .select('id, ref_id, status, starts_at, ends_at, total_due_php, service_id, ' +
-                    'client:profiles!client_id(full_name, phone, email), ' +
+                    'client:profiles!appointments_client_id_fkey(full_name, phone, email), ' +
                     'vehicle:vehicles(make, model, plate_number), ' +
                     'service:services(name)');
 
@@ -186,7 +186,8 @@
         ];
 
         const escapeCsv = (val) => {
-            const s = (val === null || val === undefined) ? '' : String(val);
+            let s = (val === null || val === undefined) ? '' : String(val);
+            if (/^[\u0000-\u0020]*[=+\-@]/.test(s)) s = "'" + s;
             if (s.includes('"') || s.includes(',') || s.includes('\n') || s.includes('\r')) {
                 return '"' + s.replace(/"/g, '""') + '"';
             }
@@ -240,11 +241,12 @@
 
     async function populateServices() {
         const { data, error } = await ALT.db.from('services').select('id, name').order('name');
-        if (error) return;
+        if (error) return error;
         const select = $('filter-service');
         (data || []).forEach((s) => {
             select.append(new Option(s.name, s.id));
         });
+        return null;
     }
 
     function setPresetDates(type) {
@@ -253,7 +255,7 @@
             $('date-from').value = today;
             $('date-to').value = today;
         } else if (type === 'week') {
-            $('date-from').value = S.addDays(today, -7);
+            $('date-from').value = S.addDays(today, -6);
             $('date-to').value = today;
         } else if (type === 'month') {
             const [y, m] = today.split('-');
@@ -295,8 +297,9 @@
     $('filter-status').addEventListener('change', load);
     $('filter-service').addEventListener('change', load);
 
-    await populateServices();
+    const serviceError = await populateServices();
 
     // Default to current month
     setPresetDates('month');
+    if (serviceError) showMessage('Could not load services for report filters: ' + serviceError.message, 'error');
 })();

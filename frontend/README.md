@@ -26,6 +26,7 @@ is no build step: open the folder in VS Code and use **Live Server**
 | 5–6. Staff Dashboard | `dashboard.html` | Staff, admin | Built |
 | 7. Automated Notice & History | `history.html` | Clients | Built |
 | 8. Reports & Storage | `reports.html` | Staff, admin | Built |
+| — | `terms.html` | Everyone | Draft (business/privacy review required) |
 
 `index.html` simply redirects to `login.html`.
 

@@ -186,6 +186,61 @@ New signups only get a session right away if **Confirm email** is off in
 Supabase (**Authentication > Sign In / Providers > Email**). Switching it off
 is fine for development. Switch it back on before real use.
 
+### Enable email confirmation and configure Brevo SMTP
+
+The registration form sends its confirmation redirect back to the current
+`login.html` URL. Configure Supabase's redirect allow list to include the exact
+local URL you use and the production login URL before testing this flow.
+
+1. **Prepare a sender domain in Brevo.** Create a Brevo account, add a domain
+   you control, and authenticate it by adding the DNS records Brevo provides.
+   Wait until Brevo reports the domain as authenticated. Use a sender address
+   on that domain; do not use a customer's address as the sender.
+2. **Get SMTP credentials.** In Brevo, open **Transactional > Settings >
+   SMTP & API** (menu wording may vary), then create/copy an SMTP key. Use the
+   SMTP key, not a Brevo API key. Keep it private.
+3. **Configure Supabase SMTP.** In the Supabase project, open
+   **Authentication > Email > SMTP Settings** (or **Authentication > Settings
+   > SMTP**, depending on the dashboard version), enable custom SMTP, then set:
+
+   | Supabase field | Brevo value |
+   |---|---|
+   | Sender email | The authenticated sender address you chose |
+   | Sender name | `Shimmer and Shield` |
+   | Host | `smtp-relay.brevo.com` |
+   | Port | `587` |
+   | Username | The SMTP login shown in Brevo |
+   | Password | The Brevo SMTP key |
+
+   Save the settings. Never put SMTP credentials in frontend files, SQL
+   migrations, commits, screenshots, or chat.
+4. **Set allowed callback URLs.** Open **Authentication > URL Configuration**.
+   Set the Site URL to the deployed app's origin. Add the exact login page URL
+   to the redirect allow list, for example
+   `http://127.0.0.1:5500/frontend/app/login.html` for Live Server and
+   `https://your-domain.example/frontend/app/login.html` for production.
+   Use the actual host, port, and deployed path. Do not use a broad wildcard
+   for production.
+5. **Turn confirmation on.** Under **Authentication > Sign In / Providers >
+   Email** (menu wording may vary), enable **Confirm email** and save.
+   Keep the **Confirm signup** email template's `{{ .ConfirmationURL }}`
+   link (or a correctly configured token link) so Supabase can verify the
+   address and apply the allowed redirect. Registration should report that a
+   confirmation email was sent; the user must follow its link and then log in.
+6. **Test delivery.** Register with an address you can access that is not a
+   Supabase organization/team address. Confirm the email, verify the link
+   returns to the app, and log in. Check the Supabase Auth logs and the Brevo
+   email activity if delivery fails; also check spam and the sender-domain DNS
+   status.
+
+Brevo advertises a free sending allowance (historically up to 300 emails/day);
+check its current [pricing and limits](https://www.brevo.com/pricing/) before
+relying on it. Supabase's built-in mailer is for development only and has
+strict recipient restrictions and low rate limits. See the current
+[Supabase custom SMTP guide](https://supabase.com/docs/guides/auth/auth-smtp)
+and [Brevo SMTP guide](https://help.brevo.com/hc/en-us/articles/7924908994450-Send-transactional-emails-using-Brevo-SMTP)
+if dashboard labels or provider limits have changed.
+
 The pages and what each does are listed in `frontend/README.md`.
 
 ---

@@ -121,25 +121,132 @@
         $('st-revenue').textContent = peso(sum.revenue);
     }
 
+    function renderAnalytics(rows, endDate) {
+        const dates = Array.from({ length: 7 }, (_, index) => S.addDays(endDate, index - 6));
+        const days = new Map(dates.map((date) => [date, { bookings: 0, cents: 0 }]));
+        const counts = { Pending: 0, Ongoing: 0, Completed: 0, Cancelled: 0 };
+        let totalCents = 0;
+        let completed = 0;
+
+        rows.forEach((row) => {
+            const date = S.todayInManila(new Date(row.starts_at));
+            const day = days.get(date);
+            if (day) {
+                day.bookings += 1;
+                if (row.status === 'Completed') {
+                    day.cents += Math.round(Number(row.total_due_php) * 100);
+                }
+            }
+            if (Object.prototype.hasOwnProperty.call(counts, row.status)) counts[row.status] += 1;
+            if (row.status === 'Completed') {
+                completed += 1;
+                totalCents += Math.round(Number(row.total_due_php) * 100);
+            }
+        });
+
+        $('analytics-range').textContent = dates[0] + ' to ' + endDate;
+        $('analytics-total').textContent = String(rows.length);
+        $('analytics-completed').textContent = String(completed);
+        $('analytics-revenue').textContent = peso(totalCents / 100);
+        $('analytics-cancelled').textContent = String(counts.Cancelled);
+
+        const chart = $('analytics-chart');
+        chart.replaceChildren();
+        const values = Array.from(days.values());
+        const maxCents = Math.max(0, ...values.map((day) => day.cents));
+        const maxBookings = Math.max(0, ...values.map((day) => day.bookings));
+        chart.setAttribute('aria-label', 'Booking counts and completed revenue for each of the seven selected days');
+        dates.forEach((date) => {
+            const day = days.get(date);
+            const column = document.createElement('div');
+            column.className = 'flex min-w-0 flex-col items-center justify-end gap-1';
+            column.title = date + ': ' + day.bookings + ' bookings, ' + peso(day.cents / 100) + ' completed revenue';
+
+            const bookingCount = document.createElement('span');
+            bookingCount.className = 'text-[9px] text-zinc-500';
+            bookingCount.textContent = String(day.bookings);
+
+            const amount = document.createElement('span');
+            amount.className = 'text-[9px] text-zinc-400 truncate w-full text-center';
+            amount.textContent = day.cents ? peso(day.cents / 100) : '—';
+
+            const barTrack = document.createElement('div');
+            barTrack.className = 'w-full h-12 flex items-end justify-center gap-1';
+            const bookingBar = document.createElement('div');
+            bookingBar.className = 'w-2/5 rounded-t bg-zinc-500';
+            bookingBar.style.height = maxBookings && day.bookings
+                ? Math.max(4, Math.round(day.bookings / maxBookings * 100)) + '%'
+                : '0%';
+            bookingBar.setAttribute('aria-label', day.bookings + ' bookings');
+            const revenueBar = document.createElement('div');
+            revenueBar.className = 'w-2/5 rounded-t bg-altRed';
+            revenueBar.style.height = maxCents && day.cents
+                ? Math.max(4, Math.round(day.cents / maxCents * 100)) + '%'
+                : '0%';
+            revenueBar.setAttribute('aria-label', peso(day.cents / 100) + ' completed revenue');
+            barTrack.append(bookingBar, revenueBar);
+
+            const label = document.createElement('span');
+            label.className = 'text-[9px] text-zinc-500';
+            label.textContent = date.slice(5);
+            column.append(bookingCount, amount, barTrack, label);
+            chart.append(column);
+        });
+
+        const statusList = $('analytics-status');
+        statusList.replaceChildren();
+        Object.entries(counts).forEach(([status, count]) => {
+            const item = document.createElement('li');
+            item.className = 'flex justify-between gap-2 border-b border-zinc-800 py-1';
+            const name = document.createElement('span');
+            name.className = 'text-zinc-400';
+            name.textContent = status;
+            const value = document.createElement('span');
+            value.className = 'font-mono font-bold';
+            value.textContent = String(count);
+            item.append(name, value);
+            statusList.append(item);
+        });
+    }
+
+    function showAnalyticsError(error) {
+        $('analytics-range').textContent = 'Analytics unavailable';
+        ['analytics-total', 'analytics-completed', 'analytics-revenue', 'analytics-cancelled'].forEach((id) => {
+            $(id).textContent = '—';
+        });
+        $('analytics-chart').replaceChildren();
+        $('analytics-status').replaceChildren();
+        showMessage('Could not load 7-day analytics. ' + error.message);
+    }
+
     let loadSeq = 0;
     async function load() {
         const date = $('date').value;
         if (!date) return;
         const seq = ++loadSeq;
         const day = S.dayBounds(date, shop.TZ_OFFSET);
+        const weekStart = S.dayBounds(S.addDays(date, -6), shop.TZ_OFFSET);
 
-        const { data, error } = await ALT.db.from('appointments')
-            .select('id, ref_id, status, starts_at, ends_at, total_due_php, ' +
-                    'client:profiles!client_id(full_name, phone), ' +
-                    'vehicle:vehicles(make, model, plate_number), ' +
-                    'service:services(name)')
-            .gte('starts_at', day.start.toISOString())
-            .lt('starts_at', day.end.toISOString())
-            .order('starts_at');
+        const [daily, weekly] = await Promise.all([
+            ALT.db.from('appointments')
+                .select('id, ref_id, status, starts_at, ends_at, total_due_php, ' +
+                        'client:profiles!appointments_client_id_fkey(full_name, phone), ' +
+                        'vehicle:vehicles(make, model, plate_number), ' +
+                        'service:services(name)')
+                .gte('starts_at', day.start.toISOString())
+                .lt('starts_at', day.end.toISOString())
+                .order('starts_at'),
+            ALT.db.from('appointments')
+                .select('status, starts_at, total_due_php')
+                .gte('starts_at', weekStart.start.toISOString())
+                .lt('starts_at', day.end.toISOString()),
+        ]);
 
         if (seq !== loadSeq) return; // a newer request replaced this one
-        if (error) return showMessage('Could not load bookings. ' + error.message);
-        render(data || []);
+        if (daily.error) return showMessage('Could not load bookings. ' + daily.error.message);
+        render(daily.data || []);
+        if (weekly.error) return showAnalyticsError(weekly.error);
+        renderAnalytics(weekly.data || [], date);
     }
 
     // ---- start-up -------------------------------------------------------

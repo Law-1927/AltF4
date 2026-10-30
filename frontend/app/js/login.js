@@ -72,13 +72,17 @@
 
         if (!full_name || !phone || !email) return showMessage('Please fill in every field.');
         if (password.length < 8) return showMessage('Password must be at least 8 characters.');
+        if (!$('reg-terms').checked) return showMessage('Please agree to the Terms and Conditions and acknowledge the Privacy Notice.');
 
         const btn = $('reg-btn');
         btn.disabled = true;
         const { data, error } = await ALT.db.auth.signUp({
             email,
             password,
-            options: { data: { full_name, phone } },
+            options: {
+                data: { full_name, phone },
+                emailRedirectTo: new URL('login.html', window.location.href).href,
+            },
         });
         btn.disabled = false;
 

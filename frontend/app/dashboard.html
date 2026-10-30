@@ -8,10 +8,10 @@
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="min-h-screen p-4 py-8">
+<body class="min-h-screen p-3 py-4">
 
-    <main class="w-full max-w-4xl mx-auto bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
-        <header class="bg-zinc-800 border-b border-zinc-700 px-6 py-3 flex justify-between items-center text-xs font-bold uppercase text-zinc-300">
+    <main class="w-full max-w-6xl mx-auto bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
+        <header class="bg-zinc-800 border-b border-zinc-700 px-4 py-3 flex justify-between items-center text-xs font-bold uppercase text-zinc-300">
             <span>Staff Dashboard</span>
             <span class="flex gap-4">
                 <a href="reports.html" class="hover:text-white text-altRed">Reports</a>
@@ -20,10 +20,51 @@
             </span>
         </header>
 
-        <div class="p-6">
+        <div class="p-4">
             <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
 
-            <div class="flex flex-wrap justify-between items-end gap-4 mb-6">
+            <section aria-labelledby="analytics-title" class="bg-zinc-900 border border-zinc-800 rounded-lg p-4 mb-4">
+                <div class="flex flex-wrap justify-between items-baseline gap-2 mb-3">
+                    <h1 id="analytics-title" class="font-bold uppercase border-l-4 border-altRed pl-2">7-Day Analytics</h1>
+                    <p id="analytics-range" class="text-[11px] text-zinc-500"></p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 text-center">
+                    <div class="bg-black/50 border border-zinc-800 p-2">
+                        <p class="text-[10px] uppercase text-zinc-500">Bookings</p>
+                        <p id="analytics-total" class="text-lg font-mono font-bold">0</p>
+                    </div>
+                    <div class="bg-black/50 border border-zinc-800 p-2">
+                        <p class="text-[10px] uppercase text-zinc-500">Completed</p>
+                        <p id="analytics-completed" class="text-lg font-mono font-bold">0</p>
+                    </div>
+                    <div class="bg-black/50 border border-zinc-800 p-2">
+                        <p class="text-[10px] uppercase text-zinc-500">Revenue</p>
+                        <p id="analytics-revenue" class="text-lg font-mono font-bold text-altRed">₱ 0</p>
+                    </div>
+                    <div class="bg-black/50 border border-zinc-800 p-2">
+                        <p class="text-[10px] uppercase text-zinc-500">Cancelled</p>
+                        <p id="analytics-cancelled" class="text-lg font-mono font-bold">0</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2">
+                        <div class="flex flex-wrap justify-between gap-2 mb-2">
+                            <h2 class="text-[10px] uppercase text-zinc-500">Daily booking and revenue trends</h2>
+                            <div class="flex gap-3 text-[9px] text-zinc-500">
+                                <span><span class="inline-block w-2 h-2 bg-zinc-500 mr-1"></span>Bookings</span>
+                                <span><span class="inline-block w-2 h-2 bg-altRed mr-1"></span>Completed revenue</span>
+                            </div>
+                        </div>
+                        <div id="analytics-chart" class="grid grid-cols-7 gap-2 h-28" role="img"></div>
+                    </div>
+                    <div>
+                        <h2 class="text-[10px] uppercase text-zinc-500 mb-2">Bookings by status</h2>
+                        <ul id="analytics-status" class="grid grid-cols-2 md:grid-cols-1 gap-1 text-xs"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <div class="flex flex-wrap justify-between items-end gap-3 mb-4">
                 <h1 class="font-bold uppercase border-l-4 border-altRed pl-2">Daily Operations</h1>
                 <div class="flex items-center gap-2">
                     <button id="prev" type="button" aria-label="Previous day" class="border border-zinc-700 px-3 py-1 text-xs hover:border-altRed">&lt;</button>
@@ -33,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 gap-3 mb-6 text-center">
+            <div class="grid grid-cols-3 gap-2 mb-4 text-center">
                 <div class="bg-zinc-900 border border-zinc-800 p-3">
                     <p class="text-[10px] uppercase text-zinc-500">Bookings</p>
                     <p id="st-active" class="text-xl font-black">0</p>

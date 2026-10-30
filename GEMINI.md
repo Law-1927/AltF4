@@ -57,4 +57,3 @@ Layout and formatting on documents are handled by the team, not the agent.
 Prefer clean restarts over layered edits when documents need rebuilding.
 
 Document pipeline (when generating .docx): Node.js docx package → soffice headless PDF → pdftoppm JPEG render → visual inspection.
-

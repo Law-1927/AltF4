@@ -8,24 +8,24 @@
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="min-h-screen p-4 py-8">
+<body class="min-h-screen p-3 py-4">
 
     <main class="w-full max-w-md mx-auto bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
-        <header class="bg-zinc-900 border-b border-zinc-800 px-6 py-3 text-xs font-bold uppercase text-zinc-400">
+        <header class="bg-zinc-900 border-b border-zinc-800 px-4 py-3 text-xs font-bold uppercase text-zinc-400">
             3. Confirmation
         </header>
 
-        <div class="p-6">
+        <div class="p-4">
             <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
 
             <div id="receipt" class="hidden">
-                <div class="text-center mb-6">
+                <div class="text-center mb-4">
                     <h1 class="text-2xl font-black uppercase mb-2">Booked!</h1>
                     <p class="text-xs text-zinc-500">Your reference number</p>
                     <p id="r-ref" class="text-3xl font-black text-altRed tracking-wider"></p>
                 </div>
 
-                <dl class="text-xs space-y-3 border-t border-zinc-800 pt-4">
+                <dl class="text-xs space-y-2 border-t border-zinc-800 pt-3">
                     <div class="flex justify-between gap-4"><dt class="text-zinc-500">Service</dt><dd id="r-service" class="text-right font-bold"></dd></div>
                     <div class="flex justify-between gap-4"><dt class="text-zinc-500">Vehicle</dt><dd id="r-vehicle" class="text-right"></dd></div>
                     <div class="flex justify-between gap-4"><dt class="text-zinc-500">Date</dt><dd id="r-date" class="text-right"></dd></div>
@@ -34,10 +34,10 @@
                     <div class="flex justify-between gap-4 border-t border-zinc-800 pt-3 text-sm"><dt class="font-bold">Total due</dt><dd id="r-total" class="text-right font-bold text-altRed"></dd></div>
                 </dl>
 
-                <p class="text-xs text-zinc-500 mt-6">The shop will confirm your booking shortly. Please keep your reference number.</p>
+                <p class="text-xs text-zinc-500 mt-4">The shop will confirm your booking shortly. Please keep your reference number.</p>
             </div>
 
-            <div class="flex flex-col gap-2 mt-6">
+            <div class="flex flex-col gap-2 mt-4">
                 <a href="history.html" class="block text-center w-full bg-altRed text-white text-xs font-bold py-2 uppercase hover:bg-red-700 transition-colors">View My Bookings</a>
                 <a href="home.html" class="block text-center w-full border border-zinc-700 text-zinc-300 text-xs font-bold py-2 uppercase hover:text-white hover:border-zinc-500">Back to home</a>
             </div>

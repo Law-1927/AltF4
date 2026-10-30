@@ -8,15 +8,15 @@
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-3">
 
-    <main class="w-full max-w-sm bg-black border-2 border-zinc-800 rounded-lg p-6">
-        <div class="text-center mb-8 mt-2">
+    <main class="w-full max-w-md bg-black border-2 border-zinc-800 rounded-lg p-4">
+        <div class="text-center mb-5">
             <h1 class="text-2xl font-black italic">ALT<span class="text-altRed">F4</span></h1>
             <p class="text-xs text-zinc-500 mt-1">Client Portal</p>
         </div>
 
-        <div class="flex border-b border-zinc-800 mb-6 text-sm" role="tablist">
+        <div class="flex border-b border-zinc-800 mb-4 text-sm" role="tablist">
             <button id="tab-login" type="button" role="tab" class="w-1/2 pb-2 text-center font-bold text-altRed border-b-2 border-altRed">Log In</button>
             <button id="tab-register" type="button" role="tab" class="w-1/2 pb-2 text-center text-zinc-500 border-b-2 border-transparent">Register</button>
         </div>
@@ -40,8 +40,16 @@
                    class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
             <input id="reg-password" type="password" autocomplete="new-password" placeholder="Password (at least 8 characters)" required
                    class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+            <label class="flex items-start gap-2 text-xs text-zinc-400">
+                <input id="reg-terms" type="checkbox" class="mt-0.5 accent-red-600">
+                <span>I agree to the <a href="terms.html" class="text-altRed underline">Terms and Conditions</a> and have read the Privacy Notice under Republic Act No. 10173.</span>
+            </label>
             <button id="reg-btn" type="submit" class="w-full bg-altRed text-white font-bold py-3 mt-2 text-sm uppercase">Create Account</button>
         </form>
+
+        <p class="mt-4 text-center text-[11px] text-zinc-500">
+            <a href="terms.html" class="underline hover:text-white">Terms and Conditions &amp; Privacy Notice (RA 10173)</a>
+        </p>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
