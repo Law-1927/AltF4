@@ -39,7 +39,7 @@
     async function signOut(scope) {
         const { error } = await client.auth.signOut(scope ? { scope } : undefined);
         if (error) throw error;
-        window.location.replace('login.html');
+        window.location.replace('index.html');
     }
 
     window.ALT = { db: client, requireSession, getMyProfile, isStaff, signOut };
