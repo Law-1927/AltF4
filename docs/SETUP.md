@@ -104,9 +104,10 @@ It creates the tables, the double-booking rule, row-level security, the
 notification triggers, the `reports_daily` view, and the real-time
 publication. The follow-up hardening migration adds checks for future profile writes,
 appointment update guards, staff access auditing, and restricted helper
-function grants. **Run each migration once, in timestamp order.** The initial
-migration is not idempotent. To start over, create a fresh Supabase project
-(simplest) or drop the tables first.
+function grants. Apply migrations in timestamp order. The initial migration is
+not idempotent; the security-hardening migration is safe to re-run if a Supabase
+Preview check retries against a database where it has already been applied.
+To start over, create a fresh Supabase project (simplest) or drop the tables first.
 
 ### 4.3 Create your first admin
 

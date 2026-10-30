@@ -8,21 +8,47 @@ grant execute on function public.is_staff() to authenticated;
 grant execute on function public.is_admin() to authenticated;
 
 -- Bound profile data and keep the profile email in sync with Supabase Auth.
-alter table public.profiles
-    add constraint profiles_full_name_length
-        check (char_length(full_name) <= 120) not valid,
-    add constraint profiles_full_name_no_control_chars
-        check (full_name !~ '[[:cntrl:]]') not valid,
-    add constraint profiles_phone_format
-        check (
-            phone is null
-            or (
-                char_length(btrim(phone)) between 7 and 32
-                and phone ~ '^\+?[0-9][0-9 ()-]*$'
-            )
-        ) not valid;
+do $$
+begin
+    if not exists (
+        select 1 from pg_constraint
+        where conrelid = 'public.profiles'::regclass
+          and conname = 'profiles_full_name_length'
+    ) then
+        alter table public.profiles
+            add constraint profiles_full_name_length
+            check (char_length(full_name) <= 120) not valid;
+    end if;
 
-create function public.guard_profile_update() returns trigger
+    if not exists (
+        select 1 from pg_constraint
+        where conrelid = 'public.profiles'::regclass
+          and conname = 'profiles_full_name_no_control_chars'
+    ) then
+        alter table public.profiles
+            add constraint profiles_full_name_no_control_chars
+            check (full_name !~ '[[:cntrl:]]') not valid;
+    end if;
+
+    if not exists (
+        select 1 from pg_constraint
+        where conrelid = 'public.profiles'::regclass
+          and conname = 'profiles_phone_format'
+    ) then
+        alter table public.profiles
+            add constraint profiles_phone_format
+            check (
+                phone is null
+                or (
+                    char_length(btrim(phone)) between 7 and 32
+                    and phone ~ '^\+?[0-9][0-9 ()-]*$'
+                )
+            ) not valid;
+    end if;
+end;
+$$;
+
+create or replace function public.guard_profile_update() returns trigger
 language plpgsql security definer set search_path = '' as $$
 begin
     if new.id = (select auth.uid())
@@ -34,6 +60,7 @@ begin
 end;
 $$;
 
+drop trigger if exists profiles_guard_update on public.profiles;
 create trigger profiles_guard_update
     before update on public.profiles
     for each row execute function public.guard_profile_update();
@@ -84,7 +111,7 @@ begin
 end;
 $$;
 
-drop trigger appointments_prepare on public.appointments;
+drop trigger if exists appointments_prepare on public.appointments;
 create trigger appointments_prepare
     before insert or update of starts_at, service_id, vehicle_id, client_id
     on public.appointments
@@ -93,7 +120,7 @@ create trigger appointments_prepare
 -- Staff may only change appointment status through the application. Admins
 -- and trusted SQL/service-role operations retain their existing ability to
 -- correct other fields; transition rules apply to authenticated staff.
-create function public.guard_appointment_update() returns trigger
+create or replace function public.guard_appointment_update() returns trigger
 language plpgsql security definer set search_path = '' as $$
 begin
     if (select auth.uid()) is null or public.is_admin() then
@@ -128,11 +155,12 @@ begin
 end;
 $$;
 
+drop trigger if exists appointments_guard_update on public.appointments;
 create trigger appointments_guard_update
     before update on public.appointments
     for each row execute function public.guard_appointment_update();
 
-create table public.audit_log (
+create table if not exists public.audit_log (
     id          bigint generated always as identity primary key,
     actor_id    uuid references auth.users (id) on delete set null,
     action      text not null check (action in (
@@ -154,10 +182,11 @@ create table public.audit_log (
 alter table public.audit_log enable row level security;
 revoke all on public.audit_log from public, anon, authenticated;
 grant select on public.audit_log to authenticated;
+drop policy if exists "audit_log: admin read" on public.audit_log;
 create policy "audit_log: admin read" on public.audit_log
     for select to authenticated using (public.is_admin());
 
-create function public.audit_profile_change() returns trigger
+create or replace function public.audit_profile_change() returns trigger
 language plpgsql security definer set search_path = '' as $$
 begin
     if tg_op = 'DELETE' then
@@ -195,11 +224,12 @@ begin
 end;
 $$;
 
+drop trigger if exists profiles_audit_change on public.profiles;
 create trigger profiles_audit_change
     after update or delete on public.profiles
     for each row execute function public.audit_profile_change();
 
-create function public.audit_appointment_change() returns trigger
+create or replace function public.audit_appointment_change() returns trigger
 language plpgsql security definer set search_path = '' as $$
 begin
     if tg_op = 'INSERT' then
@@ -251,11 +281,12 @@ begin
 end;
 $$;
 
+drop trigger if exists appointments_audit_change on public.appointments;
 create trigger appointments_audit_change
     after insert or update or delete on public.appointments
     for each row execute function public.audit_appointment_change();
 
-create function public.record_staff_access(p_action text) returns void
+create or replace function public.record_staff_access(p_action text) returns void
 language plpgsql security definer set search_path = '' as $$
 begin
     if not public.is_staff() then
