@@ -55,12 +55,22 @@ main[class] {
     min-height: calc(100vh - 2rem);
 }
 
+.page-login > main[class],
+.page-home > main[class],
+.page-booking > main[class],
+.page-terms > main[class] {
+    max-width: 68rem;
+    min-height: min(52rem, calc(100vh - 2rem));
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .page-login > main {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     align-items: center;
-    gap: clamp(2rem, 7vw, 8rem);
-    padding: clamp(1.5rem, 5vw, 5rem);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .login-intro,
@@ -77,8 +87,8 @@ main[class] {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     align-items: center;
-    gap: clamp(2rem, 7vw, 8rem);
-    padding: clamp(1.5rem, 5vw, 5rem);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .portal-intro,
@@ -90,7 +100,7 @@ main[class] {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     align-items: start;
-    gap: clamp(1rem, 3vw, 2.5rem);
+    gap: clamp(0.75rem, 2vw, 1.5rem);
     margin-top: 1.5rem;
 }
 
@@ -103,9 +113,9 @@ main[class] {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-content: start;
-    gap: clamp(1rem, 3vw, 2rem);
-    min-height: calc(100vh - 7rem);
-    padding: clamp(1rem, 3vw, 2.5rem);
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    min-height: min(46rem, calc(100vh - 7rem));
+    padding: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .booking-message,
@@ -118,15 +128,15 @@ main[class] {
 
 .booking-section {
     min-width: 0;
-    min-height: 20rem;
-    padding: clamp(1rem, 2vw, 2rem);
+    min-height: 16rem;
+    padding: clamp(0.875rem, 1.5vw, 1.5rem);
     border: 1px solid #e5e3df;
     border-radius: 8px;
     background: rgba(245, 245, 243, 0.72);
 }
 
 .page-schedule .booking-section {
-    min-height: 25rem;
+    min-height: 20rem;
 }
 
 .page-schedule #slots {
@@ -143,7 +153,7 @@ main[class] {
 .page-confirmation .booking-links {
     grid-column: auto;
     min-width: 0;
-    padding: clamp(1rem, 2vw, 2rem);
+    padding: clamp(0.875rem, 1.5vw, 1.5rem);
     border: 1px solid #e5e3df;
     border-radius: 8px;
     background: rgba(245, 245, 243, 0.72);
@@ -152,12 +162,16 @@ main[class] {
 .page-terms .terms-content {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1rem, 3vw, 2.5rem);
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.page-terms > main[class] {
+    padding: clamp(1rem, 2vw, 1.5rem);
 }
 
 .page-terms .terms-content > section {
     min-width: 0;
-    padding: clamp(1rem, 2vw, 2rem);
+    padding: clamp(0.875rem, 1.5vw, 1.5rem);
     border: 1px solid #e5e3df;
     border-radius: 8px;
     background: rgba(245, 245, 243, 0.72);
