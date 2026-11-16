@@ -55,6 +55,122 @@ main[class] {
     min-height: calc(100vh - 2rem);
 }
 
+.page-login > main {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: clamp(2rem, 7vw, 8rem);
+    padding: clamp(1.5rem, 5vw, 5rem);
+}
+
+.login-intro,
+.login-form-panel {
+    width: 100%;
+    max-width: 42rem;
+}
+
+.login-form-panel {
+    justify-self: center;
+}
+
+.page-home > main {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(2rem, 7vw, 8rem);
+    padding: clamp(1.5rem, 5vw, 5rem);
+}
+
+.portal-intro,
+.portal-content {
+    width: 100%;
+}
+
+.portal-account:not(.hidden) {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    margin-top: 1.5rem;
+}
+
+.portal-actions {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.page-booking .booking-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: clamp(1rem, 3vw, 2rem);
+    min-height: calc(100vh - 7rem);
+    padding: clamp(1rem, 3vw, 2.5rem);
+}
+
+.booking-message,
+.booking-summary,
+.booking-check,
+.booking-action,
+.booking-links {
+    grid-column: 1 / -1;
+}
+
+.booking-section {
+    min-width: 0;
+    min-height: 20rem;
+    padding: clamp(1rem, 2vw, 2rem);
+    border: 1px solid #e5e3df;
+    border-radius: 8px;
+    background: rgba(245, 245, 243, 0.72);
+}
+
+.page-schedule .booking-section {
+    min-height: 25rem;
+}
+
+.page-schedule #slots {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-content: start;
+}
+
+.page-confirmation .booking-content {
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+    align-items: start;
+}
+
+.page-confirmation .booking-receipt,
+.page-confirmation .booking-links {
+    grid-column: auto;
+    min-width: 0;
+    padding: clamp(1rem, 2vw, 2rem);
+    border: 1px solid #e5e3df;
+    border-radius: 8px;
+    background: rgba(245, 245, 243, 0.72);
+}
+
+.page-terms .terms-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.page-terms .terms-content > section {
+    min-width: 0;
+    padding: clamp(1rem, 2vw, 2rem);
+    border: 1px solid #e5e3df;
+    border-radius: 8px;
+    background: rgba(245, 245, 243, 0.72);
+}
+
+.page-terms .privacy-section {
+    grid-column: 1 / -1;
+}
+
+.page-terms .terms-content > section:last-child {
+    grid-column: 1 / -1;
+}
+
 main[class] :where(
     .text-xs,
     .text-sm,
@@ -405,12 +521,80 @@ html.auth-embedded body::before {
 html.auth-embedded main[class] {
     width: 100%;
     max-width: none;
+    min-height: 0;
+    display: block;
     border: 0 !important;
     border-radius: 0;
     padding: 18px;
     box-shadow: none;
 }
 
+html.auth-embedded .page-login > main {
+    display: block;
+    padding: 18px;
+}
+
+html.auth-embedded .page-login .login-intro {
+    max-width: none;
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+html.auth-embedded .page-login .login-intro h2,
+html.auth-embedded .page-login .login-intro > p:not(:first-of-type) {
+    display: none;
+}
+
+html.auth-embedded .page-login .login-form-panel {
+    max-width: none;
+}
+
 html.auth-embedded .color-mode-toggle {
     display: none;
+}
+
+@media (max-width: 760px) {
+    .page-login > main,
+    .page-home > main {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+        padding: 1.25rem;
+    }
+
+    .login-intro h2,
+    .portal-intro h2 {
+        margin-top: 1.5rem;
+    }
+
+    .portal-account:not(.hidden) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .page-booking .booking-content {
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 0;
+        padding: 1rem;
+    }
+
+    .booking-message,
+    .booking-summary,
+    .booking-check,
+    .booking-action,
+    .booking-links,
+    .page-confirmation .booking-receipt {
+        grid-column: 1;
+    }
+
+    .booking-section,
+    .page-schedule .booking-section {
+        min-height: 0;
+    }
+
+    .page-terms .terms-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .page-terms .privacy-section {
+        grid-column: 1;
+    }
 }

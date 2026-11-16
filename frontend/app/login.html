@@ -9,48 +9,53 @@
     <script src="js/color-mode.js"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="min-h-screen flex items-center justify-center p-3">
+<body class="page-wide page-login min-h-screen p-3 py-4">
 
-    <main class="w-full max-w-md bg-black border-2 border-zinc-800 rounded-lg p-4">
-        <div class="text-center mb-5">
+    <main class="w-full max-w-none bg-black border-2 border-zinc-800 rounded-lg p-4">
+        <section class="login-intro">
             <h1 class="text-2xl font-black italic">ALT<span class="text-altRed">F4</span></h1>
-            <p class="text-xs text-zinc-500 mt-1">Client Portal</p>
-        </div>
+            <p class="text-xs text-zinc-500 mt-2">SHIMMER &amp; SHIELD CAR COATING</p>
+            <h2 class="mt-8 text-3xl font-black">A better way to care for your vehicle.</h2>
+            <p class="mt-4 text-zinc-400">Create an account to save your vehicle details, book a service, and keep track of your appointments.</p>
+        </section>
 
-        <div class="flex border-b border-zinc-800 mb-4 text-sm" role="tablist">
-            <button id="tab-login" type="button" role="tab" class="w-1/2 pb-2 text-center font-bold text-altRed border-b-2 border-altRed">Log In</button>
-            <button id="tab-register" type="button" role="tab" class="w-1/2 pb-2 text-center text-zinc-500 border-b-2 border-transparent">Register</button>
-        </div>
+        <section class="login-form-panel" aria-label="Client account">
+            <p class="text-sm text-zinc-500 mb-4">Client Portal</p>
+            <div class="flex border-b border-zinc-800 mb-4 text-sm" role="tablist">
+                <button id="tab-login" type="button" role="tab" class="w-1/2 pb-2 text-center font-bold text-altRed border-b-2 border-altRed">Log In</button>
+                <button id="tab-register" type="button" role="tab" class="w-1/2 pb-2 text-center text-zinc-500 border-b-2 border-transparent">Register</button>
+            </div>
 
-        <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
+            <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
 
-        <form id="login-form" class="space-y-4" novalidate>
-            <input id="login-email" type="email" autocomplete="email" placeholder="juan.delacruz@email.com" required
-                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
-            <input id="login-password" type="password" autocomplete="current-password" placeholder="Password" required
-                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
-            <button id="login-btn" type="submit" class="w-full bg-altRed text-white font-bold py-3 mt-2 text-sm uppercase">Secure Login</button>
-        </form>
+            <form id="login-form" class="space-y-4" novalidate>
+                <input id="login-email" type="email" autocomplete="email" placeholder="juan.delacruz@email.com" required
+                       class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                <input id="login-password" type="password" autocomplete="current-password" placeholder="Password" required
+                       class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                <button id="login-btn" type="submit" class="w-full bg-altRed text-white font-bold py-3 mt-2 text-sm uppercase">Secure Login</button>
+            </form>
 
-        <form id="register-form" class="space-y-4 hidden" novalidate>
-            <input id="reg-name" type="text" autocomplete="name" placeholder="Full name" required
-                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
-            <input id="reg-phone" type="tel" autocomplete="tel" placeholder="Mobile number (0917-123-4567)" required
-                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
-            <input id="reg-email" type="email" autocomplete="email" placeholder="Email" required
-                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
-            <input id="reg-password" type="password" autocomplete="new-password" placeholder="Password (at least 8 characters)" required
-                   class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
-            <label class="flex items-start gap-2 text-xs text-zinc-400">
-                <input id="reg-terms" type="checkbox" class="mt-0.5 accent-red-600">
-                <span>I agree to the <a href="terms.html" class="text-altRed underline">Terms and Conditions</a> and have read the Privacy Notice under Republic Act No. 10173.</span>
-            </label>
-            <button id="reg-btn" type="submit" class="w-full bg-altRed text-white font-bold py-3 mt-2 text-sm uppercase">Create Account</button>
-        </form>
+            <form id="register-form" class="space-y-4 hidden" novalidate>
+                <input id="reg-name" type="text" autocomplete="name" placeholder="Full name" required
+                       class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                <input id="reg-phone" type="tel" autocomplete="tel" placeholder="Mobile number (0917-123-4567)" required
+                       class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                <input id="reg-email" type="email" autocomplete="email" placeholder="Email" required
+                       class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                <input id="reg-password" type="password" autocomplete="new-password" placeholder="Password (at least 8 characters)" required
+                       class="w-full bg-zinc-900 border border-zinc-700 p-3 text-sm text-zinc-300">
+                <label class="flex items-start gap-2 text-xs text-zinc-400">
+                    <input id="reg-terms" type="checkbox" class="mt-0.5 accent-red-600">
+                    <span>I agree to the <a href="terms.html" class="text-altRed underline">Terms and Conditions</a> and have read the Privacy Notice under Republic Act No. 10173.</span>
+                </label>
+                <button id="reg-btn" type="submit" class="w-full bg-altRed text-white font-bold py-3 mt-2 text-sm uppercase">Create Account</button>
+            </form>
 
-        <p class="mt-4 text-center text-[11px] text-zinc-500">
-            <a href="terms.html" class="underline hover:text-white">Terms and Conditions &amp; Privacy Notice (RA 10173)</a>
-        </p>
+            <p class="mt-4 text-center text-[11px] text-zinc-500">
+                <a href="terms.html" class="underline hover:text-white">Terms and Conditions &amp; Privacy Notice (RA 10173)</a>
+            </p>
+        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"

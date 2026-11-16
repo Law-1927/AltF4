@@ -8,17 +8,17 @@
     <script src="js/color-mode.js"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="min-h-screen p-3 py-4">
+<body class="page-wide page-booking page-confirmation min-h-screen p-3 py-4">
 
-    <main class="w-full max-w-md mx-auto bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
+    <main class="w-full max-w-none bg-black border-2 border-zinc-800 rounded-lg overflow-hidden">
         <header class="bg-zinc-900 border-b border-zinc-800 px-4 py-3 text-xs font-bold uppercase text-zinc-400">
             3. Confirmation
         </header>
 
-        <div class="p-4">
-            <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
+        <div class="booking-content">
+            <p id="msg" role="alert" class="booking-message hidden text-xs p-3 mb-4 border"></p>
 
-            <div id="receipt" class="hidden">
+            <div id="receipt" class="booking-receipt hidden">
                 <div class="text-center mb-4">
                     <h1 class="text-2xl font-black uppercase mb-2">Booked!</h1>
                     <p class="text-xs text-zinc-500">Your reference number</p>
@@ -37,7 +37,7 @@
                 <p class="text-xs text-zinc-500 mt-4">The shop will confirm your booking shortly. Please keep your reference number.</p>
             </div>
 
-            <div class="flex flex-col gap-2 mt-4">
+            <div class="booking-links flex flex-col gap-2 mt-4">
                 <a href="history.html" class="block text-center w-full bg-altRed text-white text-xs font-bold py-2 uppercase hover:bg-red-700 transition-colors">View My Bookings</a>
                 <a href="home.html" class="block text-center w-full border border-zinc-700 text-zinc-300 text-xs font-bold py-2 uppercase hover:text-white hover:border-zinc-500">Back to home</a>
             </div>

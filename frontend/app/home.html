@@ -8,23 +8,34 @@
     <script src="js/color-mode.js"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="min-h-screen flex items-center justify-center p-3">
+<body class="page-wide page-home min-h-screen p-3 py-4">
 
-    <main class="w-full max-w-md bg-black border-2 border-zinc-800 rounded-lg p-4">
-        <h1 class="text-2xl font-black italic text-center mb-6">ALT<span class="text-altRed">F4</span></h1>
+    <main class="w-full max-w-none bg-black border-2 border-zinc-800 rounded-lg p-4">
+        <section class="portal-intro">
+            <h1 class="text-2xl font-black italic">ALT<span class="text-altRed">F4</span></h1>
+            <p class="mt-2 text-xs text-zinc-500">SHIMMER &amp; SHIELD CAR COATING</p>
+            <h2 class="mt-8 text-3xl font-black">Your account, all in one place.</h2>
+            <p class="mt-4 text-zinc-400">Manage your profile, vehicle appointments, and service updates from your client portal.</p>
+        </section>
 
-        <p id="status" class="text-sm text-zinc-400 text-center">Loading…</p>
+        <section class="portal-content" aria-label="Account overview">
+            <p id="status" class="text-sm text-zinc-400">Loading your account…</p>
 
-        <div id="account" class="hidden space-y-2 text-sm">
-            <p>Signed in as <strong id="who"></strong></p>
-            <p class="text-zinc-400">Email: <span id="email"></span></p>
-            <p class="text-zinc-400">Role: <span id="role" class="text-altRed font-bold uppercase"></span></p>
-            <a id="book-link" href="book-service.html" hidden class="block text-center w-full bg-altRed text-white font-bold py-3 mt-4 text-sm uppercase">Book an appointment</a>
-            <a id="history-link" href="history.html" hidden class="block text-center w-full border border-zinc-700 text-zinc-300 font-bold py-3 mt-2 text-sm uppercase hover:text-white hover:border-zinc-500">My Bookings & Notices</a>
-            <a id="dash-link" href="dashboard.html" hidden class="block text-center w-full bg-altRed text-white font-bold py-3 mt-4 text-sm uppercase">Open staff dashboard</a>
-            <a id="reports-link" href="reports.html" hidden class="block text-center w-full border border-zinc-700 text-zinc-300 font-bold py-3 mt-2 text-sm uppercase hover:text-white hover:border-zinc-500">Staff Reports & Export</a>
-            <button id="signout" type="button" class="w-full border border-zinc-700 text-zinc-300 text-xs font-bold py-2 mt-4 uppercase hover:text-white hover:border-zinc-500">Sign out</button>
-        </div>
+            <div id="account" class="portal-account hidden text-sm">
+                <div class="portal-details">
+                    <p>Signed in as <strong id="who"></strong></p>
+                    <p class="text-zinc-400">Email: <span id="email"></span></p>
+                    <p class="text-zinc-400">Role: <span id="role" class="text-altRed font-bold uppercase"></span></p>
+                </div>
+                <nav class="portal-actions" aria-label="Account actions">
+                    <a id="book-link" href="book-service.html" hidden class="block text-center w-full bg-altRed text-white font-bold py-3 text-sm uppercase">Book an appointment</a>
+                    <a id="history-link" href="history.html" hidden class="block text-center w-full border border-zinc-700 text-zinc-300 font-bold py-3 text-sm uppercase hover:text-white hover:border-zinc-500">My Bookings &amp; Notices</a>
+                    <a id="dash-link" href="dashboard.html" hidden class="block text-center w-full bg-altRed text-white font-bold py-3 text-sm uppercase">Open staff dashboard</a>
+                    <a id="reports-link" href="reports.html" hidden class="block text-center w-full border border-zinc-700 text-zinc-300 font-bold py-3 text-sm uppercase hover:text-white hover:border-zinc-500">Staff Reports &amp; Export</a>
+                    <button id="signout" type="button" class="w-full border border-zinc-700 text-zinc-300 text-sm font-bold py-3 uppercase hover:text-white hover:border-zinc-500">Sign out</button>
+                </nav>
+            </div>
+        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"
