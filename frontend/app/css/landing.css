@@ -400,6 +400,65 @@ html[data-theme="dark"] .color-mode-toggle {
     color: #f2cf66;
 }
 
+body {
+    font-size: 18px;
+}
+
+.main-nav,
+.btn,
+.hero-lead,
+.text-link,
+.intro-copy,
+.section-heading > p,
+.service-card h3,
+.service-card p,
+.service-card a,
+.step h3,
+.step p,
+.footer-bottom,
+.footer-top > p,
+.brand-copy strong,
+.brand-copy small,
+.eyebrow,
+.hero-note,
+.hero-side-label,
+.auth-panel-header h2 {
+    font-size: 18px !important;
+    line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+    .site-header {
+        height: auto;
+        min-height: 70px;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .header-actions {
+        order: 4;
+        flex-basis: 100%;
+        margin: 0;
+    }
+
+    .header-actions .btn {
+        flex: 1;
+        padding: 10px 8px;
+        white-space: nowrap;
+    }
+
+    .main-nav {
+        top: 100%;
+    }
+
+    .hero-lead,
+    .intro-copy {
+        font-size: 18px !important;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition-duration: .01ms !important; }

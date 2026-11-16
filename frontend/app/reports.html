@@ -23,6 +23,13 @@
         <div class="p-4">
             <p id="msg" role="alert" class="hidden text-xs p-3 mb-4 border"></p>
 
+            <div class="flex border-b border-zinc-800 mb-4 text-sm" role="tablist" aria-label="Report views">
+                <button id="tab-records" type="button" role="tab" aria-selected="true" aria-controls="records-panel"
+                        class="border-b-2 border-altRed px-4 py-3 font-bold text-altRed">Records</button>
+                <button id="tab-analytics" type="button" role="tab" aria-selected="false" aria-controls="analytics-panel"
+                        class="border-b-2 border-transparent px-4 py-3 text-zinc-500">Analytics</button>
+            </div>
+
             <!-- Filters Section -->
             <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg mb-6">
                 <div class="flex flex-wrap items-end justify-between gap-4">
@@ -72,44 +79,82 @@
                 </div>
             </div>
 
-            <!-- Summary Cards -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4 text-center">
-                <div class="bg-zinc-900 border border-zinc-800 p-3">
-                    <p class="text-[10px] uppercase text-zinc-500">Revenue (Completed)</p>
-                    <p id="st-revenue" class="text-xl font-mono font-bold text-altRed">₱ 0</p>
+            <section id="records-panel" role="tabpanel" aria-labelledby="tab-records">
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4 text-center">
+                    <div class="bg-zinc-900 border border-zinc-800 p-3">
+                        <p class="text-[10px] uppercase text-zinc-500">Revenue (Completed)</p>
+                        <p id="st-revenue" class="text-xl font-mono font-bold text-altRed">₱ 0</p>
+                    </div>
+                    <div class="bg-zinc-900 border border-zinc-800 p-3">
+                        <p class="text-[10px] uppercase text-zinc-500">Completed Jobs</p>
+                        <p id="st-completed" class="text-xl font-mono font-bold">0</p>
+                    </div>
+                    <div class="bg-zinc-900 border border-zinc-800 p-3">
+                        <p class="text-[10px] uppercase text-zinc-500">Active Bookings</p>
+                        <p id="st-active" class="text-xl font-mono font-bold">0</p>
+                    </div>
+                    <div class="bg-zinc-900 border border-zinc-800 p-3">
+                        <p class="text-[10px] uppercase text-zinc-500">Total Filtered</p>
+                        <p id="st-total" class="text-xl font-mono font-bold">0</p>
+                    </div>
                 </div>
-                <div class="bg-zinc-900 border border-zinc-800 p-3">
-                    <p class="text-[10px] uppercase text-zinc-500">Completed Jobs</p>
-                    <p id="st-completed" class="text-xl font-mono font-bold">0</p>
-                </div>
-                <div class="bg-zinc-900 border border-zinc-800 p-3">
-                    <p class="text-[10px] uppercase text-zinc-500">Active Bookings</p>
-                    <p id="st-active" class="text-xl font-mono font-bold">0</p>
-                </div>
-                <div class="bg-zinc-900 border border-zinc-800 p-3">
-                    <p class="text-[10px] uppercase text-zinc-500">Total Filtered</p>
-                    <p id="st-total" class="text-xl font-mono font-bold">0</p>
-                </div>
-            </div>
 
-            <!-- Table -->
-            <div class="overflow-x-auto border border-zinc-900 rounded">
-                <table class="w-full text-left text-xs border-collapse min-w-[640px]">
-                    <thead class="bg-zinc-900">
-                        <tr class="border-b border-zinc-800 text-zinc-400 uppercase text-[11px]">
-                            <th class="p-3">Date & Time</th>
-                            <th class="p-3">Ref ID</th>
-                            <th class="p-3">Client</th>
-                            <th class="p-3">Vehicle</th>
-                            <th class="p-3">Service</th>
-                            <th class="p-3 text-right">Total Due</th>
-                            <th class="p-3">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="rows"></tbody>
-                </table>
-            </div>
-            <p id="empty" class="hidden text-xs text-zinc-500 text-center py-8">No records matching the selected filters.</p>
+                <!-- Table -->
+                <div class="overflow-x-auto border border-zinc-900 rounded">
+                    <table class="w-full text-left text-xs border-collapse min-w-[640px]">
+                        <thead class="bg-zinc-900">
+                            <tr class="border-b border-zinc-800 text-zinc-400 uppercase text-[11px]">
+                                <th class="p-3">Date & Time</th>
+                                <th class="p-3">Ref ID</th>
+                                <th class="p-3">Client</th>
+                                <th class="p-3">Vehicle</th>
+                                <th class="p-3">Service</th>
+                                <th class="p-3 text-right">Total Due</th>
+                                <th class="p-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows"></tbody>
+                    </table>
+                </div>
+                <p id="empty" class="hidden text-xs text-zinc-500 text-center py-8">No records matching the selected filters.</p>
+            </section>
+
+            <section id="analytics-panel" role="tabpanel" aria-labelledby="tab-analytics" hidden>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 text-center">
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+                        <p class="text-[10px] uppercase text-zinc-500">Bookings in view</p>
+                        <p id="analytics-total" class="text-2xl font-mono font-bold">0</p>
+                    </div>
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+                        <p class="text-[10px] uppercase text-zinc-500">Completed jobs</p>
+                        <p id="analytics-completed" class="text-2xl font-mono font-bold">0</p>
+                    </div>
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+                        <p class="text-[10px] uppercase text-zinc-500">Completed revenue</p>
+                        <p id="analytics-revenue" class="text-xl font-mono font-bold text-altRed">₱ 0</p>
+                    </div>
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+                        <p class="text-[10px] uppercase text-zinc-500">Average completed job</p>
+                        <p id="analytics-average" class="text-xl font-mono font-bold">₱ 0</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <section class="bg-zinc-900 border border-zinc-800 rounded-lg p-4" aria-labelledby="analytics-services-title">
+                        <h2 id="analytics-services-title" class="font-bold uppercase mb-4">Most requested services</h2>
+                        <ul id="analytics-services" class="space-y-4"></ul>
+                    </section>
+                    <section class="bg-zinc-900 border border-zinc-800 rounded-lg p-4" aria-labelledby="analytics-status-title">
+                        <h2 id="analytics-status-title" class="font-bold uppercase mb-4">Booking status breakdown</h2>
+                        <ul id="analytics-status" class="space-y-3"></ul>
+                    </section>
+                    <section class="lg:col-span-2 bg-zinc-900 border border-zinc-800 rounded-lg p-4" aria-labelledby="analytics-insights-title">
+                        <h2 id="analytics-insights-title" class="font-bold uppercase mb-3">Insights &amp; suggested actions</h2>
+                        <ul id="analytics-insights" class="space-y-2"></ul>
+                    </section>
+                </div>
+            </section>
         </div>
     </main>
 

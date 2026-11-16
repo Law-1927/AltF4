@@ -118,6 +118,148 @@
         $('st-completed').textContent = String(completedCount);
         $('st-active').textContent = String(activeCount);
         $('st-total').textContent = String(rows.length);
+        renderAnalytics(rows);
+    }
+
+    function renderAnalytics(rows) {
+        const statusCounts = { Pending: 0, Ongoing: 0, Completed: 0, Cancelled: 0 };
+        const services = new Map();
+        let completedCents = 0;
+        let completedCount = 0;
+
+        rows.forEach((row) => {
+            if (Object.prototype.hasOwnProperty.call(statusCounts, row.status)) {
+                statusCounts[row.status] += 1;
+            }
+
+            const name = row.service ? row.service.name : 'Unspecified service';
+            const service = services.get(name) || { count: 0, revenueCents: 0 };
+            service.count += 1;
+            if (row.status === 'Completed') {
+                const cents = Math.round(Number(row.total_due_php) * 100);
+                service.revenueCents += cents;
+                completedCents += cents;
+                completedCount += 1;
+            }
+            services.set(name, service);
+        });
+
+        $('analytics-total').textContent = String(rows.length);
+        $('analytics-completed').textContent = String(completedCount);
+        $('analytics-revenue').textContent = peso(completedCents / 100);
+        $('analytics-average').textContent = peso(completedCount ? completedCents / completedCount / 100 : 0);
+
+        const serviceList = $('analytics-services');
+        serviceList.replaceChildren();
+        const rankedServices = Array.from(services.entries())
+            .sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0]))
+            .slice(0, 5);
+        const maxServiceCount = rankedServices.length ? rankedServices[0][1].count : 0;
+
+        if (rankedServices.length === 0) {
+            const empty = document.createElement('li');
+            empty.className = 'text-zinc-500';
+            empty.textContent = 'No service data for the current filters.';
+            serviceList.append(empty);
+        }
+
+        rankedServices.forEach(([name, service]) => {
+            const item = document.createElement('li');
+            item.className = 'space-y-2';
+
+            const label = document.createElement('div');
+            label.className = 'flex flex-wrap justify-between gap-2';
+            const serviceName = document.createElement('span');
+            serviceName.className = 'font-bold';
+            serviceName.textContent = name;
+            const serviceCount = document.createElement('span');
+            serviceCount.className = 'text-zinc-500';
+            serviceCount.textContent = service.count + (service.count === 1 ? ' booking' : ' bookings');
+            label.append(serviceName, serviceCount);
+
+            const track = document.createElement('div');
+            track.className = 'h-3 overflow-hidden rounded bg-zinc-800';
+            const bar = document.createElement('div');
+            bar.className = 'h-full rounded bg-altRed';
+            bar.style.width = Math.round(service.count / maxServiceCount * 100) + '%';
+            bar.setAttribute('role', 'progressbar');
+            bar.setAttribute('aria-valuemin', '0');
+            bar.setAttribute('aria-valuemax', String(maxServiceCount));
+            bar.setAttribute('aria-valuenow', String(service.count));
+            bar.setAttribute('aria-label', name + ': ' + service.count + ' bookings');
+            track.append(bar);
+
+            const revenue = document.createElement('p');
+            revenue.className = 'text-zinc-500';
+            revenue.textContent = 'Completed revenue: ' + peso(service.revenueCents / 100);
+            item.append(label, track, revenue);
+            serviceList.append(item);
+        });
+
+        const statusList = $('analytics-status');
+        statusList.replaceChildren();
+        Object.entries(statusCounts).forEach(([status, count]) => {
+            const item = document.createElement('li');
+            item.className = 'space-y-2';
+            const label = document.createElement('div');
+            label.className = 'flex justify-between gap-2';
+            const statusName = document.createElement('span');
+            statusName.textContent = status;
+            const value = document.createElement('span');
+            value.className = 'font-mono font-bold';
+            value.textContent = String(count);
+            label.append(statusName, value);
+
+            const track = document.createElement('div');
+            track.className = 'h-3 overflow-hidden rounded bg-zinc-800';
+            const bar = document.createElement('div');
+            bar.className = 'h-full rounded';
+            bar.style.width = rows.length ? Math.round(count / rows.length * 100) + '%' : '0%';
+            bar.style.backgroundColor = {
+                Pending: '#737373',
+                Ongoing: '#d99a16',
+                Completed: '#39834a',
+                Cancelled: '#d71920',
+            }[status];
+            bar.setAttribute('role', 'progressbar');
+            bar.setAttribute('aria-valuemin', '0');
+            bar.setAttribute('aria-valuemax', String(rows.length));
+            bar.setAttribute('aria-valuenow', String(count));
+            bar.setAttribute('aria-label', status + ': ' + count + ' bookings');
+            track.append(bar);
+            item.append(label, track);
+            statusList.append(item);
+        });
+
+        const insights = $('analytics-insights');
+        insights.replaceChildren();
+        const suggestions = [];
+        if (rows.length === 0) {
+            suggestions.push('No bookings match these filters. Expand the date range or clear the status and service filters.');
+        } else {
+            if (rankedServices.length) {
+                suggestions.push('Most requested: ' + rankedServices[0][0] + ' (' + rankedServices[0][1].count +
+                    '). Keep its supplies and appointment capacity ready for demand.');
+            }
+            const activeCount = statusCounts.Pending + statusCounts.Ongoing;
+            if (activeCount) {
+                suggestions.push(activeCount + ' active booking' + (activeCount === 1 ? ' needs' : 's need') +
+                    ' attention. Confirm pending appointments and keep clients updated on ongoing work.');
+            }
+            if (statusCounts.Cancelled) {
+                suggestions.push(statusCounts.Cancelled + ' cancellation' + (statusCounts.Cancelled === 1 ? '' : 's') +
+                    '. Review the reasons and offer alternative appointment times where possible.');
+            }
+            if (suggestions.length === 1) {
+                suggestions.push('All other bookings in this filtered period are completed. Compare these totals with another date range to track changes.');
+            }
+        }
+        suggestions.forEach((suggestion) => {
+            const item = document.createElement('li');
+            item.className = 'border-l-4 border-altRed pl-3 text-zinc-400';
+            item.textContent = suggestion;
+            insights.append(item);
+        });
     }
 
     let loadSeq = 0;
@@ -301,6 +443,33 @@
     $('signout').addEventListener('click', () => ALT.signOut());
     $('btn-filter').addEventListener('click', load);
     $('btn-export-csv').addEventListener('click', exportToCsv);
+
+    const reportTabs = [$('tab-records'), $('tab-analytics')];
+    function activateTab(activeTab, focusTab) {
+        reportTabs.forEach((tab) => {
+            const active = tab === activeTab;
+            tab.setAttribute('aria-selected', String(active));
+            tab.tabIndex = active ? 0 : -1;
+            tab.className = active
+                ? 'border-b-2 border-altRed px-4 py-3 font-bold text-altRed'
+                : 'border-b-2 border-transparent px-4 py-3 text-zinc-500';
+            $(tab.getAttribute('aria-controls')).hidden = !active;
+        });
+        if (focusTab) activeTab.focus();
+    }
+    reportTabs.forEach((tab) => {
+        tab.addEventListener('click', () => activateTab(tab, false));
+        tab.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Home' || event.key === 'End') {
+                event.preventDefault();
+                const index = reportTabs.indexOf(tab);
+                const nextIndex = event.key === 'Home' ? 0
+                    : event.key === 'End' ? reportTabs.length - 1
+                        : (index + (event.key === 'ArrowRight' ? 1 : reportTabs.length - 1)) % reportTabs.length;
+                activateTab(reportTabs[nextIndex], true);
+            }
+        });
+    });
 
     $('preset-today').addEventListener('click', () => setPresetDates('today'));
     $('preset-week').addEventListener('click', () => setPresetDates('week'));
