@@ -17,33 +17,21 @@ body {
     position: relative;
     isolation: isolate;
     min-height: 100vh;
-    background:
-        radial-gradient(ellipse at 12% 14%, rgba(215, 25, 32, 0.1), transparent 34%),
-        radial-gradient(ellipse at 90% 82%, rgba(40, 40, 40, 0.12), transparent 38%),
-        linear-gradient(135deg, #f8f7f4, #eae8e3 54%, #f7f6f3);
+    background: #000;
     color: var(--alt-ink);
     font-family: 'DM Sans', 'Segoe UI', Tahoma, sans-serif;
     font-size: 18px;
 }
 
 body::before {
-    position: fixed;
-    z-index: -1;
-    inset: -5px;
-    content: "";
-    background:
-        radial-gradient(circle at 18% 24%, rgba(215, 25, 32, 0.14), transparent 35%),
-        radial-gradient(circle at 83% 76%, rgba(55, 55, 55, 0.12), transparent 38%),
-        url("../assets/shimmer-shield-design.png") center / cover no-repeat;
-    filter: blur(3px);
-    opacity: 0.55;
+    display: none;
 }
 
 main[class] {
     position: relative;
-    color: var(--alt-ink);
-    background: rgba(255, 255, 255, 0.97) !important;
-    border: 1px solid var(--alt-line) !important;
+    color: #fff;
+    background: #000 !important;
+    border: 2px solid var(--alt-red) !important;
     border-radius: 8px;
     box-shadow: 0 18px 55px rgba(17, 17, 17, 0.12);
     font-size: 18px;
@@ -116,6 +104,9 @@ main[class] {
     gap: clamp(0.75rem, 2vw, 1.5rem);
     min-height: min(46rem, calc(100vh - 7rem));
     padding: clamp(0.75rem, 2vw, 1.5rem);
+    color: #fff;
+    background: #000;
+    border: 2px solid var(--alt-red);
 }
 
 .booking-message,
@@ -130,9 +121,13 @@ main[class] {
     min-width: 0;
     min-height: 16rem;
     padding: clamp(0.875rem, 1.5vw, 1.5rem);
-    border: 1px solid #e5e3df;
+    border: 1px solid #383633;
     border-radius: 8px;
-    background: rgba(245, 245, 243, 0.72);
+    background: #151515;
+}
+
+.page-booking .booking-section {
+    color: #fff;
 }
 
 .page-schedule .booking-section {
@@ -154,9 +149,9 @@ main[class] {
     grid-column: auto;
     min-width: 0;
     padding: clamp(0.875rem, 1.5vw, 1.5rem);
-    border: 1px solid #e5e3df;
+    border: 1px solid #383633;
     border-radius: 8px;
-    background: rgba(245, 245, 243, 0.72);
+    background: #151515;
 }
 
 .page-terms .terms-content {
@@ -172,9 +167,9 @@ main[class] {
 .page-terms .terms-content > section {
     min-width: 0;
     padding: clamp(0.875rem, 1.5vw, 1.5rem);
-    border: 1px solid #e5e3df;
+    border: 1px solid #383633;
     border-radius: 8px;
-    background: rgba(245, 245, 243, 0.72);
+    background: #151515;
 }
 
 .page-terms .privacy-section {
@@ -207,24 +202,24 @@ main[class] a[hidden] {
     display: none !important;
 }
 
-main[class] > header {
+.page-wide main[class] > header[class] {
     color: #f5f5f5 !important;
     background: #080808 !important;
     border-color: #292929 !important;
 }
 
-main[class] > header a,
-main[class] > header button,
-main[class] > header span {
+.page-wide main[class] > header[class] a,
+.page-wide main[class] > header[class] button,
+.page-wide main[class] > header[class] span {
     color: #d0d0d0;
 }
 
-main[class] > header a:hover,
-main[class] > header button:hover {
+.page-wide main[class] > header[class] a:hover,
+.page-wide main[class] > header[class] button:hover {
     color: #fff;
 }
 
-main[class] > header .text-altRed {
+.page-wide main[class] > header[class] .text-altRed {
     color: var(--alt-red) !important;
 }
 
@@ -236,7 +231,7 @@ main[class] h3 {
 }
 
 main[class] .text-white {
-    color: var(--alt-ink) !important;
+    color: #fff !important;
 }
 
 main[class] button.text-white,
@@ -247,40 +242,40 @@ main[class] > header .text-white {
 
 main[class] .text-zinc-200,
 main[class] .text-zinc-300 {
-    color: #343434 !important;
+    color: #d3d0cb !important;
 }
 
 main[class] .text-zinc-400 {
-    color: #555 !important;
+    color: #b6b2ac !important;
 }
 
 main[class] .text-zinc-500 {
-    color: #737373 !important;
+    color: #a09c96 !important;
 }
 
 main[class] .text-zinc-600,
 main[class] .text-zinc-700 {
-    color: #888 !important;
+    color: #a09c96 !important;
 }
 
 main[class] [class*="bg-black"],
 main[class] [class*="bg-zinc-950"],
 main[class] [class*="bg-zinc-900"] {
-    background-color: #f8f8f6 !important;
+    background-color: #151515 !important;
 }
 
 main[class] [class*="bg-zinc-800"] {
-    background-color: #efeeeb !important;
+    background-color: #242424 !important;
 }
 
 main[class] [class*="border-zinc-900"],
 main[class] [class*="border-zinc-800"],
 main[class] [class*="border-zinc-700"] {
-    border-color: var(--alt-line) !important;
+    border-color: #383633 !important;
 }
 
 main[class] [class*="border-zinc-600"] {
-    border-color: #d2cfca !important;
+    border-color: #484642 !important;
 }
 
 main[class] .bg-altRed {
@@ -355,15 +350,15 @@ main[class] button:disabled {
 }
 
 main[class] table {
-    color: #282828;
+    color: #e4e2de;
 }
 
 main[class] thead {
-    background-color: #f1f0ed;
+    background-color: #292927;
 }
 
 main[class] tbody tr:hover {
-    background-color: #f8f7f5;
+    background-color: #292927;
 }
 
 @media (max-width: 640px) {
@@ -385,17 +380,13 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] body::before {
-    background:
-        linear-gradient(rgba(12, 12, 12, 0.72), rgba(12, 12, 12, 0.82)),
-        radial-gradient(circle at 18% 24%, rgba(215, 25, 32, 0.12), transparent 35%),
-        url("../assets/shimmer-shield-design.png") center / cover no-repeat;
-    opacity: 1;
+    display: none;
 }
 
 html[data-theme="dark"] main[class] {
-    color: var(--alt-ink);
-    background: rgba(29, 29, 29, 0.98) !important;
-    border-color: #3a3936 !important;
+    color: #fff;
+    background: #000 !important;
+    border: 2px solid var(--alt-red) !important;
     box-shadow: 0 18px 55px rgba(0, 0, 0, 0.4);
 }
 

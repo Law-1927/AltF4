@@ -15,7 +15,7 @@ html { scroll-behavior: smooth; }
 body {
     margin: 0;
     min-height: 100vh;
-    background: var(--paper);
+    background: #000;
     color: var(--ink);
     font-family: 'DM Sans', sans-serif;
 }
@@ -27,6 +27,8 @@ body.landing-page {
 
 body.landing-page > main {
     flex: 1;
+    background: #000;
+    border: 2px solid var(--red);
 }
 
 button, a { -webkit-tap-highlight-color: transparent; }

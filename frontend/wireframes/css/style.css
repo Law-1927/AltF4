@@ -2,7 +2,7 @@
    Extracted from the original inline <style> block. */
 
 body {
-    background-color: #111;
+    background-color: #000;
     color: #fff;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     overflow-x: auto;
@@ -25,7 +25,7 @@ body {
     width: 375px;
     flex-shrink: 0;
     background: #000;
-    border: 2px solid #333;
+    border: 2px solid #d71920;
     border-radius: 8px;
     overflow: hidden;
     position: relative;
