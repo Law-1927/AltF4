@@ -99,14 +99,18 @@ This is the simplest route and what the team should use.
 3. Click **Run**. It should finish with no errors.
 4. In a separate query, run the full contents of
    `supabase/migrations/20261030000000_security_hardening.sql`.
+5. In another query, run
+   `supabase/migrations/20261031000000_keep_completed_appointments_reserved.sql`.
 
 It creates the tables, the double-booking rule, row-level security, the
 notification triggers, the `reports_daily` view, and the real-time
 publication. The follow-up hardening migration adds checks for future profile writes,
 appointment update guards, staff access auditing, and restricted helper
-function grants. Apply migrations in timestamp order. The initial migration is
-not idempotent; the security-hardening migration is safe to re-run if a Supabase
-Preview check retries against a database where it has already been applied.
+function grants. The latest migration repairs booked-slot synchronization and
+backfills every non-cancelled appointment, including completed appointments,
+so finishing a job early does not free the rest of its scheduled interval.
+Apply migrations in timestamp order. The initial migration is not idempotent;
+the later migrations are safe to re-run.
 To start over, create a fresh Supabase project (simplest) or drop the tables first.
 
 ### 4.3 Create your first admin
@@ -238,6 +242,29 @@ local URL you use and the production login URL before testing this flow.
    returns to the app, and log in. Check the Supabase Auth logs and the Brevo
    email activity if delivery fails; also check spam and the sender-domain DNS
    status.
+
+#### Troubleshooting: `5.7.1 Unauthorized IP address`
+
+If signup returns `Error sending confirmation email` and Brevo reports
+`5.7.1 Unauthorized IP address`, Brevo's SMTP-key IP blocking is rejecting
+Supabase Auth's outbound connection. In Brevo, open **Settings > Security >
+Authorized IPs** and inspect the unauthorized-IP entry for the failed attempt.
+Authorize it only after confirming it belongs to Supabase Auth. The SMTP
+connection comes from Supabase, not the visitor's browser or the Vercel
+frontend. Brevo requires SMTP client IPs to be authorized manually; authorize
+all trusted egress IPs before enabling SMTP IP blocking. If the source IP is
+unclear or changes, ask Supabase/Brevo support to identify the correct egress
+address instead of allowing an unknown IP or disabling the block.
+
+#### Troubleshooting: confirmation link times out on `sendibt2.com`
+
+Brevo tracks clicks on transactional email links. If a signup confirmation link
+opens a `sendibt2.com` host and times out, inspect **Transactional > Emails >
+Logs > Clicked links** in Brevo. The tracking redirect must complete before
+Supabase can verify the link and return to the allowed `login.html` URL. Ask
+Brevo whether click tracking can be disabled or a working tracking domain can
+be configured for these SMTP emails. Do not add the tracking host to Supabase's
+redirect allow list; the allowed redirect should remain the app's login URL.
 
 Brevo advertises a free sending allowance (historically up to 300 emails/day);
 check its current [pricing and limits](https://www.brevo.com/pricing/) before

@@ -49,6 +49,12 @@ main[class] {
     font-size: 18px;
 }
 
+.page-wide > main[class] {
+    width: 100%;
+    max-width: none;
+    min-height: calc(100vh - 2rem);
+}
+
 main[class] :where(
     .text-xs,
     .text-sm,
