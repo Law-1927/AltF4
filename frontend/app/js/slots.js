@@ -67,9 +67,8 @@
         for (let t = open; t + durationMins <= close; t += shop.SLOT_STEP_MINS) {
             const start = toInstant(date, t, shop.TZ_OFFSET);
             const end = new Date(start.getTime() + durationMins * 60000);
-            let status = 'free';
-            if (start <= now) status = 'past';
-            else if (booked.some((b) => new Date(b.starts_at) < end && new Date(b.ends_at) > start)) status = 'booked';
+            const isBooked = booked.some((b) => new Date(b.starts_at) < end && new Date(b.ends_at) > start);
+            const status = isBooked ? 'booked' : start <= now ? 'past' : 'free';
             slots.push({ start, end, label: fmtTime(start), status });
         }
         return { closed: false, slots };

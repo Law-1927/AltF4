@@ -72,17 +72,20 @@
         result.slots.forEach((s) => {
             const b = document.createElement('button');
             b.type = 'button';
-            b.textContent = s.label;
+            const rangeLabel = s.label + ' – ' + S.fmtTime(s.end);
+            b.textContent = rangeLabel;
             const isSel = selected && selected.start.getTime() === s.start.getTime();
             if (s.status !== 'free') {
                 b.disabled = true;
                 b.className = 'p-2 border border-zinc-800 ' +
-                    (s.status === 'booked' ? 'line-through text-zinc-600' : 'text-zinc-700');
+                    (s.status === 'booked' ? 'bg-zinc-800/80 line-through text-zinc-600' : 'text-zinc-700');
                 b.title = s.status === 'booked' ? 'Already booked' : 'Time has passed';
+                b.setAttribute('aria-label', rangeLabel + (s.status === 'booked' ? ', already booked' : ', in the past'));
             } else {
                 b.className = 'p-2 border ' + (isSel
                     ? 'border-altRed bg-altRed text-white font-bold'
                     : 'border-zinc-700 hover:border-altRed');
+                b.setAttribute('aria-label', 'Book from ' + rangeLabel);
                 b.addEventListener('click', () => {
                     selected = s;
                     clearMessage();
@@ -97,18 +100,22 @@
     async function loadSlots() {
         const date = $('date').value;
         const previous = selected ? selected.start.getTime() : null;
+        const seq = ++loadSeq;
         selected = null;
         updateConfirm();
-        if (!date) return;
+        clearMessage();
+        $('slots').replaceChildren();
+        $('check').classList.add('hidden');
+        if (!date) {
+            return;
+        }
 
         const today = S.todayInManila();
         const last = S.addDays(today, shop.BOOKING_WINDOW_DAYS);
         if (date < today || date > last) {
-            $('slots').replaceChildren();
             return setCheck('Please choose a date within the next ' + shop.BOOKING_WINDOW_DAYS + ' days.', false);
         }
 
-        const seq = ++loadSeq;
         const day = S.dayBounds(date, shop.TZ_OFFSET);
         const { data, error } = await ALT.db.from('booked_slots')
             .select('starts_at, ends_at')
